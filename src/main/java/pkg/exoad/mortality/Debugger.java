@@ -6,8 +6,12 @@ public final class Debugger
 	
 	static
 	{
-		if(AppGlobal.APP_USE_LOGGER) //this check here might be useless
+		if(AppGlobal.APP_USE_LOGGER)
+		{ //this check here might be useless
 			LOG=Logger.getGlobal();
+			System.setProperty("java.util.logging.SimpleFormatter.format",
+							   "%5$s %n"); //a hack to get rid of the time and project name line in the console messages
+		}
 	}
 	
 	public static void info(String message)

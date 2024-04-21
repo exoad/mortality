@@ -22,6 +22,7 @@ public final class InfoDisplayRegion
 			AppGlobal.APP_DISPLAY_NAME,
 			AppGlobal.APP_VERSION_ID
 		));
+		appInfo.setDoubleBuffered(true);
 		appInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
 		JLabel basicStatsHeaders=new JLabel(
 			"<html><strong>Hours lived\t</strong><br/><strong>Days tracked\t</strong></html>");
@@ -29,7 +30,9 @@ public final class InfoDisplayRegion
 		JLabel basicStatsAnswers=new JLabel(String.format(
 			"<html>%.2f<br/>%d</html>",
 			0F,
-			AppGlobal.telemetry.value.allEntries().length
+			AppGlobal.telemetry
+				.get()
+				.allEntries().length
 		));
 		basicStatsAnswers.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		JPanel basicStatsWrapper=new JPanel()
@@ -50,6 +53,7 @@ public final class InfoDisplayRegion
 				super.paintComponent(g);
 			}
 		};
+		basicStatsWrapper.setDoubleBuffered(true);
 		basicStatsWrapper.setBorder(BorderFactory.createLineBorder(
 			Util.hexColor(AppGlobal.APP_COMPONENT_HIGHLIGHT_COLOR),
 			18,

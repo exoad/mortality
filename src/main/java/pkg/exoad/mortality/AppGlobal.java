@@ -2,6 +2,7 @@ package pkg.exoad.mortality;
 import java.io.File;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 /**
  * Shared constants class
  *
@@ -46,7 +47,7 @@ public final class AppGlobal
 	public static String PATH_SEPARATOR;
 	public static String WORKING_DIRECTORY;
 	public static String APP_DIRECTORY;
-	public static Value<MortalityTelemetry> telemetry=new Value<>(null);
+	public static AtomicReference<MortalityTelemetry> telemetry=new AtomicReference<>(null);
 	
 	private static Random rngInstance;
 	
@@ -112,7 +113,7 @@ public final class AppGlobal
 						null
 					);
 				AppGlobal.telemetry.set(e.orElse(null));
-				if(AppGlobal.telemetry.value==null)
+				if(AppGlobal.telemetry.get()==null)
 					InformContext
 						.errorVariant(
 							"Failed to load journal!",
@@ -126,6 +127,7 @@ public final class AppGlobal
 		}
 		WORKING_DIRECTORY=appDir.getAbsolutePath();
 		Debugger.info(String.format("app-dir located at %s",WORKING_DIRECTORY));
+		Debugger.info("loaded telemetry as: "+telemetry.get());
 		return isNewUser;
 	}
 }
