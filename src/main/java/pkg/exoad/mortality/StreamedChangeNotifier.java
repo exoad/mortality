@@ -24,7 +24,7 @@ public class StreamedChangeNotifier<A>
 	
 	protected synchronized void notifyListeners(A value)
 	{
-		listeners.forEach(x->x.accept(value));
+		AppGlobal.WORKER_2.submit(()->listeners.forEach(x->x.accept(value)));
 	}
 	
 	protected void notifyUIListeners(A value)

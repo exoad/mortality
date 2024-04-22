@@ -10,8 +10,16 @@ import java.util.Arrays;
  */
 public class AppEntry
 {
+	static final long start;
+	
+	static
+	{
+		start=System.currentTimeMillis();
+	}
+	
 	public static void main(String... args)
 	{
+		long ephemeralStart=System.currentTimeMillis();
 		for(String arg: args)
 		{
 			// this shit scuffed
@@ -35,36 +43,40 @@ public class AppEntry
 				AppGlobal.APP_SAVE_PERIOD=time;
 			}
 		}
-		try
-		{
-			UIManager.setLookAndFeel(new FlatMacDarkLaf());
-		}catch(UnsupportedLookAndFeelException e)
-		{
-			throw new RuntimeException(e);
-		}
-		Debugger.info(String.format(
-			"starting mortality-app[%d]",
-			AppGlobal.APP_VERSION_ID
-		));
-		Debugger.info("loaded possible emotion_tags="+Arrays
-			.stream(MortalityEmotionTag.values())
-			.map(x->Util.formalizeString(x.name()))
-			.toList()
-		);
-		boolean shouldRunSetup=AppGlobal.load();
-		if(shouldRunSetup)
-		{
-			new Setup(()->System.exit(0),telemetry->{
-				Util.serializeObject(
-					AppGlobal.APP_DIRECTORY+AppGlobal.PATH_SEPARATOR+AppGlobal.ENTRIES_MAIN_SAVE_FILE_NAME,
-					telemetry
-				);
+		AppGlobal.WORKER_2.submit(()->{
+			try
+			{
+				UIManager.setLookAndFeel(new FlatMacDarkLaf());
+			}catch(UnsupportedLookAndFeelException e)
+			{
+				throw new RuntimeException(e);
+			}
+			Debugger.info(String.format(
+				"starting mortality-app[%d]",
+				AppGlobal.APP_VERSION_ID
+			));
+			Debugger.info("loaded possible emotion_tags="+Arrays
+				.stream(MortalityEmotionTag.values())
+				.map(x->Util.formalizeString(x.name()))
+				.toList()
+			);
+			boolean shouldRunSetup=AppGlobal.load();
+			if(shouldRunSetup)
+			{
+				new Setup(()->System.exit(0),telemetry->{
+					Util.serializeObject(
+						AppGlobal.APP_DIRECTORY+AppGlobal.PATH_SEPARATOR+AppGlobal.ENTRIES_MAIN_SAVE_FILE_NAME,
+						telemetry
+					);
+					_run();
+				})
+					.run();
+			}
+			else
 				_run();
-			})
-				.run();
-		}
-		else
-			_run();
+			Debugger.info("app_Mortality_Hollistic STARTED UP IN "+(System.currentTimeMillis()-start)+"ms");
+		});
+		Debugger.info("app_Mortality_Ephemeral WARMED UP IN "+(System.currentTimeMillis()-ephemeralStart)+"ms");
 	}
 	
 	private static void _run()

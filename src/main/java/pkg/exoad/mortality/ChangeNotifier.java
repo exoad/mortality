@@ -23,7 +23,7 @@ public class ChangeNotifier //name inspried by flutter's changenotifier :)
 	
 	protected synchronized void notifyListeners()
 	{
-		listeners.forEach(Runnable::run);
+		AppGlobal.WORKER_2.submit(()->listeners.forEach(Runnable::run));
 	}
 	
 	protected void notifyUIListeners()

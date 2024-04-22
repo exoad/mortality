@@ -3,6 +3,9 @@ import java.io.File;
 import java.io.InvalidClassException;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Timer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 /**
  * Shared constants class
@@ -11,6 +14,8 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public final class AppGlobal
 {
+	public static final Timer WORKER_1=new Timer();
+	public static final ExecutorService WORKER_2=Executors.newWorkStealingPool();
 	public static final String APP_DISPLAY_NAME="Mortality";
 	public static final int APP_VERSION_ID=1;
 	public static final int WINDOW_HEIGHT=760;
