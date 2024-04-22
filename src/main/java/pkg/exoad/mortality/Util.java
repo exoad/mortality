@@ -71,7 +71,6 @@ public final class Util
 		String path,A defaultObj
 	)
 	{
-		boolean shouldReturnDefault=false;
 		A obj=null;
 		try
 		{
@@ -84,11 +83,15 @@ public final class Util
 				Debugger.info("Failed to read object (of type="+defaultObj
 					.getClass()
 					.getCanonicalName()+"), located at: "+path);
-			shouldReturnDefault=true;
+			else
+				Debugger.info("Failed to load object.");
+			throw new RuntimeException(e);
 		}
-		return shouldReturnDefault?(defaultObj==null?Optional.empty():Optional.of(
-			defaultObj)):obj==null?Optional.empty():Optional.of(
+		Optional<A> res=obj==null?(defaultObj==null?Optional.empty():Optional.of(
+			defaultObj)):Optional.of(
 			obj);
+		Debugger.info("OBJ_DESERIAL["+path+"] -> isPresent="+res.isPresent());
+		return res;
 	}
 	
 	public static void sleep(long ms,boolean canPanic)

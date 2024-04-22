@@ -23,7 +23,8 @@ public class InformContext
 		JPanel contentPane=new JPanel();
 		contentPane.setBorder(BorderFactory.createEmptyBorder(4,2,4,2));
 		contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.Y_AXIS));
-		JLabel titleLabel=new JLabel("<html><p style=\"font-size:12px;color:"+AppGlobal.APP_THEME_BG_COLOR+"\"><strong>"+title+"</strong></p></html>")
+		JLabel titleLabel=titleColor!=null?new JLabel(
+			"<html><p style=\"font-size:12px;color:"+AppGlobal.APP_THEME_BG_COLOR+"\"><strong>"+title+"</strong></p></html>")
 		{
 			@Override
 			public void paintComponent(Graphics g)
@@ -41,7 +42,7 @@ public class InformContext
 				super.paintComponent(g2);
 				g2.dispose();
 			}
-		};
+		}:new JLabel("<html><p style=\"font-size:12px\"><strong>"+title+"</strong></p></html>");
 		titleLabel.setBorder(BorderFactory.createEmptyBorder(6,6,6,6));
 		JLabel messageLabel=new JLabel("<html><p style=\"font-size:10px\">"+message+"</p></html>");
 		JPanel labelsWrapper=new JPanel();

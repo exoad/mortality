@@ -100,7 +100,6 @@ public class AppEntry
 				JSplitPane jsp=new JSplitPane();
 				jsp.setBorder(BorderFactory.createEmptyBorder());
 				jsp.setOrientation(JSplitPane.VERTICAL_SPLIT);
-				jsp.setDividerSize(0);
 				jsp.setDividerLocation(
 					AppGlobal.WINDOW_HEIGHT/6);
 				jsp.setTopComponent(new InfoDisplayRegion());

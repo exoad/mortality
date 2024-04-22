@@ -7,7 +7,7 @@ public final class InfoDisplayRegion
 {
 	public InfoDisplayRegion()
 	{
-		setLayout(new GridLayout(1,3,8,0));
+		setLayout(new GridLayout(1,2,8,0));
 		setBorder(BorderFactory.createEmptyBorder(
 			AppGlobal.INFO_REGION_CONTENT_PADDING,
 			AppGlobal.INFO_REGION_CONTENT_LR_PADDING,
@@ -40,31 +40,19 @@ public final class InfoDisplayRegion
 			@Override
 			public void paintComponent(Graphics g)
 			{
-				Graphics2D g2=Util.makeCapable((Graphics2D)g);
-				g2.setColor(Util.hexColor(AppGlobal.APP_COMPONENT_HIGHLIGHT_COLOR));
-				g2.fillRoundRect(
-					0,
-					0,
-					getWidth(),
-					getHeight(),
-					AppGlobal.UI_GENERAL_ROUNDNESS,
-					AppGlobal.UI_GENERAL_ROUNDNESS
-				);
+				g.setColor(Util.hexColor(AppGlobal.APP_COMPONENT_HIGHLIGHT_COLOR));
+				g.fillRect(0,0,this.getWidth(),this.getHeight());
 				super.paintComponent(g);
 			}
 		};
+		basicStatsWrapper.setBorder(BorderFactory.createEmptyBorder());
 		basicStatsWrapper.setDoubleBuffered(true);
-		basicStatsWrapper.setBorder(BorderFactory.createLineBorder(
-			Util.hexColor(AppGlobal.APP_COMPONENT_HIGHLIGHT_COLOR),
-			18,
-			true
-		)); // this is making a padding like system (ie a hack)
 		basicStatsWrapper.setOpaque(false);
 		basicStatsWrapper.setLayout(new BorderLayout());
 		basicStatsWrapper.add(basicStatsHeaders,BorderLayout.WEST);
 		basicStatsWrapper.add(basicStatsAnswers,BorderLayout.EAST);
 		appInfoWrapper.add(appInfo,BorderLayout.CENTER);
-		JPanel moreStatsWrapper=new JPanel()
+		JPanel basicStatsWrapperWrapper=new JPanel()
 		{
 			@Override
 			public void paintComponent(Graphics g)
@@ -79,13 +67,23 @@ public final class InfoDisplayRegion
 					AppGlobal.UI_GENERAL_ROUNDNESS,
 					AppGlobal.UI_GENERAL_ROUNDNESS
 				);
-				super.paintComponent(g);
+				super.paintComponent(g2);
 			}
 		};
-		moreStatsWrapper.setOpaque(false);
-		JLabel moreStats=new JLabel();
+		basicStatsWrapper.setOpaque(false);
+		basicStatsWrapperWrapper.setLayout(new BorderLayout());
+		basicStatsWrapperWrapper.add(basicStatsWrapper,BorderLayout.CENTER);
+		basicStatsWrapperWrapper.setBorder(BorderFactory.createLineBorder(
+			Util.hexColor(AppGlobal.APP_COMPONENT_HIGHLIGHT_COLOR),
+			8,
+			true
+		)); // this is making a padding like system (ie a hack)
+		JScrollPane jsp=new JScrollPane();
+		jsp.setBorder(BorderFactory.createEmptyBorder());
+		JViewport jvp=new JViewport();
+		jvp.setView(basicStatsWrapperWrapper);
+		jsp.setViewport(jvp);
 		add(appInfoWrapper);
-		add(moreStatsWrapper);
-		add(basicStatsWrapper);
+		add(jsp);
 	}
 }

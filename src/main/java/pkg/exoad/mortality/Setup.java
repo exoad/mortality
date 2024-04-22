@@ -3,8 +3,6 @@ import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.*;
@@ -83,19 +81,6 @@ public class Setup
 								  .getProperty("user.name")
 								  .isEmpty()?"somebody":System.getProperty(
 			"user.name"));
-		userNameInput.addKeyListener(new KeyAdapter()
-		{
-			@Override public void keyTyped(final KeyEvent e)
-			{
-				if(userNameInput
-					.getText()
-					.isEmpty())
-					userNameInput.setText(System
-											  .getProperty("user.name")
-											  .isEmpty()?"somebody":System.getProperty(
-						"user.name"));
-			}
-		});
 		userNameInput
 			.getDocument()
 			.putProperty("filterNewlines",Boolean.TRUE);
@@ -153,16 +138,6 @@ public class Setup
 			}
 		});
 		year.setText("2006");
-		year.addKeyListener(new KeyAdapter()
-		{
-			@Override public void keyTyped(final KeyEvent e)
-			{
-				if(year
-					.getText()
-					.isEmpty())
-					year.setText("2006");
-			}
-		});
 		birthDateInput.add(new JLabel("Month")); //0
 		birthDateInput.add(month); //1
 		birthDateInput.add(new JLabel("Day")); //2
@@ -180,24 +155,52 @@ public class Setup
 		controllerButtons.setLayout(new FlowLayout(FlowLayout.RIGHT,6,4));
 		JButton setInfo=new JButton("<html><p><strong>Submit</strong></p></html>");
 		setInfo.addActionListener(ev->{
-			jf.dispose();
-			Calendar c=new GregorianCalendar();
-			c.set(
-				Integer.parseInt(year.getText()),
-				Util.lookupMonthStrForced(
-					month
-						.getSelectedItem()
-						.toString()).numerical-1,
-				//ignore error if suggesting to use Calendar dot something
-				date.getSelectedIndex()+1
-			);
-			MortalityTelemetry obj=new MortalityTelemetry(
-				userNameInput.getName(),
-				c.getTime(),
-				new ArrayList<>()
-			);
-			Debugger.info("setup creates "+obj);
-			onSubmit.accept(obj);
+			if(userNameInput.getText()==null||userNameInput //priority above "year" due to ui ordering
+				.getText()
+				.isEmpty())
+				new InformContext(
+					"A required field \"user name\" was left blank!",
+					"Oops...",
+					()->{},
+					jf,
+					"Ok",
+					null,
+					null
+				).run();
+			else if(year.getText()==null||year
+				.getText()
+				.isEmpty())
+				new InformContext(
+					"A required field \"year\" was left blank!",
+					"Oops...",
+					()->{},
+					jf,
+					"Ok",
+					null,
+					null
+				).run();
+			else
+			{
+				jf.dispose();
+				Calendar c=new GregorianCalendar();
+				c.set(
+					Integer.parseInt(year.getText()),
+					Util.lookupMonthStrForced(
+						month
+							.getSelectedItem()
+							.toString()).numerical-1,
+					//ignore error if suggesting to use Calendar dot something
+					date.getSelectedIndex()+1
+				);
+				MortalityTelemetry obj=new MortalityTelemetry(
+					userNameInput.getText(),
+					c.getTime(),
+					new ArrayList<>(),
+					0d
+				);
+				Debugger.info("setup creates "+obj);
+				onSubmit.accept(obj);
+			}
 		});
 		setInfo.setForeground(Util.hexColor(AppGlobal.APP_THEME_BG_COLOR));
 		setInfo.setBackground(Util.hexColor(AppGlobal.SCHEME_GREEN));

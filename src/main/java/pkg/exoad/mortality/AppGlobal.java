@@ -1,5 +1,6 @@
 package pkg.exoad.mortality;
 import java.io.File;
+import java.io.InvalidClassException;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
@@ -107,11 +108,25 @@ public final class AppGlobal
 			if(mainSaveFile.exists()&&entriesSubdir.exists())
 			{
 				isNewUser=false;
-				Optional<MortalityTelemetry> e=Util
-					.deserializeObject(
-						APP_DIRECTORY+PATH_SEPARATOR+ENTRIES_MAIN_SAVE_FILE_NAME,
-						null
-					);
+				Optional<MortalityTelemetry> e=Optional.empty();
+				try
+				{
+					e=Util
+						.deserializeObject(
+							APP_DIRECTORY+PATH_SEPARATOR+ENTRIES_MAIN_SAVE_FILE_NAME,
+							null
+						);
+				}catch(Exception er)
+				{
+					if(er instanceof InvalidClassException r)
+					{
+						Debugger.info(
+							"failed to load journal because of invalid uid, reloading...");
+						mainSaveFile.delete();
+						load();
+					}
+				}
+				Debugger.info("DESERIALIZE telemetry -> "+e.isPresent());
 				AppGlobal.telemetry.set(e.orElse(null));
 				if(AppGlobal.telemetry.get()==null)
 					InformContext
