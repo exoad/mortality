@@ -1,4 +1,4 @@
-package pkg.exoad.mortality;
+package pkg.exoad.mortality.app;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;

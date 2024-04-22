@@ -1,5 +1,7 @@
-package pkg.exoad.mortality;
+package pkg.exoad.mortality.app.ui;
 import javax.swing.*;
+import pkg.exoad.mortality.app.Assets;
+import pkg.exoad.mortality.app.Debugger;
 
 import java.awt.*;
 public class ConfirmContext

@@ -1,6 +1,7 @@
 package pkg.exoad.mortality;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import javax.swing.*;
+import pkg.exoad.mortality.app.ui.Window;
 
 import java.util.Arrays;
 /**

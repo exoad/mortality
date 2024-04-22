@@ -1,4 +1,4 @@
-package pkg.exoad.mortality;
+package pkg.exoad.mortality.app;
 public class Value<T>
 {
 	public T value;

@@ -1,5 +1,7 @@
-package pkg.exoad.mortality;
+package pkg.exoad.mortality.app.ui;
 import javax.swing.*;
+import pkg.exoad.mortality.AppGlobal;
+import pkg.exoad.mortality.app.Util;
 
 import java.awt.*;
 public final class InfoDisplayRegion

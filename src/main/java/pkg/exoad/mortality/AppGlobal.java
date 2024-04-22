@@ -1,4 +1,7 @@
 package pkg.exoad.mortality;
+import pkg.exoad.mortality.app.*;
+import pkg.exoad.mortality.app.ui.InformContext;
+
 import java.io.File;
 import java.io.InvalidClassException;
 import java.util.Optional;
