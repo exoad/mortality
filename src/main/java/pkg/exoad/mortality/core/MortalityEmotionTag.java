@@ -1,4 +1,4 @@
-package pkg.exoad.mortality.app;
+package pkg.exoad.mortality.core;
 public enum MortalityEmotionTag
 {
 	JOYFUL,

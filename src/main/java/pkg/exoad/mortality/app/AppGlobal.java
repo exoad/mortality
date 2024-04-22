@@ -1,6 +1,9 @@
-package pkg.exoad.mortality;
-import pkg.exoad.mortality.app.*;
-import pkg.exoad.mortality.app.ui.InformContext;
+package pkg.exoad.mortality.app;
+
+import pkg.exoad.mortality.core.ux.Debugger;
+import pkg.exoad.mortality.core.ux.JournalReadException;
+import pkg.exoad.mortality.core.ux.Util;
+import pkg.exoad.mortality.core.MortalityTelemetry;
 
 import java.io.File;
 import java.io.InvalidClassException;
@@ -91,7 +94,7 @@ public final class AppGlobal
 		if(!appDir.exists())
 		{
 			if(!appDir.mkdir())
-				InformContext
+				pkg.exoad.mortality.app.ui.InformContext
 					.errorVariant(
 						"An internal error occurred",
 						Util.structurizeException(new RuntimeException(String.format(
@@ -137,7 +140,7 @@ public final class AppGlobal
 				Debugger.info("DESERIALIZE telemetry -> "+e.isPresent());
 				AppGlobal.telemetry.set(e.orElse(null));
 				if(AppGlobal.telemetry.get()==null)
-					InformContext
+					pkg.exoad.mortality.app.ui.InformContext
 						.errorVariant(
 							"Failed to load journal!",
 							Util.structurizeException(new JournalReadException(

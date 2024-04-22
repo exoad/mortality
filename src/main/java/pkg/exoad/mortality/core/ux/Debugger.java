@@ -1,4 +1,6 @@
-package pkg.exoad.mortality.app;
+package pkg.exoad.mortality.core.ux;
+import pkg.exoad.mortality.app.AppGlobal;
+
 import java.util.logging.Logger;
 public final class Debugger
 {

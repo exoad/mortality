@@ -1,4 +1,7 @@
-package pkg.exoad.mortality.app;
+package pkg.exoad.mortality.core;
+import pkg.exoad.mortality.app.AppGlobal;
+import pkg.exoad.mortality.core.ux.*;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;

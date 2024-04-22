@@ -1,5 +1,6 @@
-package pkg.exoad.mortality.app;
+package pkg.exoad.mortality.core.ux;
 import javax.swing.*;
+import pkg.exoad.mortality.app.AppGlobal;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;

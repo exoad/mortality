@@ -1,4 +1,5 @@
-package pkg.exoad.mortality.app;
+package pkg.exoad.mortality.core;
+import pkg.exoad.mortality.app.AppGlobal;
 public enum MortalityMood
 {
 	GOOD("Good",AppGlobal.MOOD_GOOD_COLOR),DECENT("Decent",

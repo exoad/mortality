@@ -1,4 +1,4 @@
-package pkg.exoad.mortality.app;
+package pkg.exoad.mortality.core.ux;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

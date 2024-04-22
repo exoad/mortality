@@ -1,4 +1,4 @@
-package pkg.exoad.mortality.app;
+package pkg.exoad.mortality.core.ux;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;

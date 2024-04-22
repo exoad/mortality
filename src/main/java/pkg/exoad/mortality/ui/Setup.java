@@ -1,8 +1,7 @@
 package pkg.exoad.mortality.app.ui;
 import javax.swing.*;
 import javax.swing.text.AbstractDocument;
-import pkg.exoad.mortality.AppGlobal;
-import pkg.exoad.mortality.app.*;
+import pkg.exoad.mortality.app.AppGlobal;
 
 import java.awt.*;
 import java.awt.event.WindowAdapter;
