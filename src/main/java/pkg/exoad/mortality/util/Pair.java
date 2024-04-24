@@ -1,4 +1,4 @@
-package pkg.exoad.mortality.core.ux;
+package pkg.exoad.mortality.util;
 public class Pair<A,B>
 {
 	public A first;

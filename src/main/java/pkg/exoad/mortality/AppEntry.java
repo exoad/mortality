@@ -1,12 +1,12 @@
-package pkg.exoad.mortality.app;
+package pkg.exoad.mortality;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import javax.swing.*;
-import pkg.exoad.mortality.core.ux.Debugger;
-import pkg.exoad.mortality.core.ux.NamedTask;
-import pkg.exoad.mortality.core.ux.Util;
 import pkg.exoad.mortality.core.MortalityEmotionTag;
 import pkg.exoad.mortality.core.MortalityTelemetry;
-import pkg.exoad.mortality.ui.Window;
+import pkg.exoad.mortality.ui.*;
+import pkg.exoad.mortality.util.Debugger;
+import pkg.exoad.mortality.util.NamedTask;
+import pkg.exoad.mortality.util.Util;
 
 import java.util.Arrays;
 /**

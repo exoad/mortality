@@ -1,10 +1,10 @@
-package pkg.exoad.mortality.app.ui;
+package pkg.exoad.mortality.ui;
 import javax.swing.*;
-import pkg.exoad.mortality.app.AppGlobal;
-import pkg.exoad.mortality.app.Assets;
-import pkg.exoad.mortality.app.Debugger;
-import pkg.exoad.mortality.app.Mime;
-import pkg.exoad.mortality.app.Util;
+import pkg.exoad.mortality.AppGlobal;
+import pkg.exoad.mortality.util.Assets;
+import pkg.exoad.mortality.util.Debugger;
+import pkg.exoad.mortality.util.Mime;
+import pkg.exoad.mortality.util.Util;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -70,14 +70,14 @@ public class InformContext
 		JPanel yesButtonWrapper=new JPanel();
 		yesButtonWrapper.requestFocus();
 		yesButtonWrapper.setLayout(new BorderLayout());
-		yesButtonWrapper.add(yes,BorderLayout.CENTER);
-		contentPane.add(yesButtonWrapper);
+		yesButtonWrapper.add(yes,BorderLayout.SOUTH);
 		jf.setContentPane(contentPane);
 	}
 	
 	public static InformContext errorVariant(String message,String detailed)
 	{
 		assert detailed!=null&&!detailed.isEmpty()&&!detailed.matches("\\s+"); //dont make empty shit
+		final String detailedBuilt=detailed+Debugger.getFormattedUserPlatformInfo();
 		JScrollPane jsp=new JScrollPane();
 		jsp.setPreferredSize(new Dimension(360,180));
 		jsp.setBorder(BorderFactory.createTitledBorder(
@@ -90,13 +90,12 @@ public class InformContext
 		jep.setPreferredSize(jsp.getPreferredSize());
 		jep.setBorder(BorderFactory.createEmptyBorder(4,4,4,4));
 		jep.setFocusable(false);
-		jep.setText("<html><p>"+detailed
+		jep.setText("<html><p>"+detailedBuilt
 			.replace("\n","<br/>")
 			.replace("\t","&#9;")
 			.replace(" ","&nbsp;")+"</p></html>");
 		jep.setEditable(false);
 		JViewport jvp=new JViewport();
-		jvp.setPreferredSize(jsp.getPreferredSize());
 		jvp.setView(jep);
 		jsp.setViewport(jvp);
 		JPanel jp=new JPanel();
@@ -106,7 +105,7 @@ public class InformContext
 		copy.addActionListener(ev->Toolkit
 			.getDefaultToolkit()
 			.getSystemClipboard()
-			.setContents(new StringSelection(detailed),null));
+			.setContents(new StringSelection(detailedBuilt),null));
 		jp.add(copy,BorderLayout.SOUTH);
 		InformContext ctxt=new InformContext(
 			message,

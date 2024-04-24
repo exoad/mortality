@@ -1,6 +1,6 @@
 package pkg.exoad.mortality.core;
-import pkg.exoad.mortality.app.AppGlobal;
-import pkg.exoad.mortality.core.ux.*;
+import pkg.exoad.mortality.*;
+import pkg.exoad.mortality.util.*;
 
 import java.io.Serial;
 import java.io.Serializable;

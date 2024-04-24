@@ -1,6 +1,7 @@
-package pkg.exoad.mortality.app.ui;
+package pkg.exoad.mortality.ui;
 import javax.swing.*;
-import pkg.exoad.mortality.app.AppGlobal;
+import pkg.exoad.mortality.AppGlobal;
+import pkg.exoad.mortality.util.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

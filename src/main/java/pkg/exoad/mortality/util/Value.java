@@ -1,4 +1,4 @@
-package pkg.exoad.mortality.core.ux;
+package pkg.exoad.mortality.util;
 public class Value<T>
 {
 	public T value;

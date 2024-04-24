@@ -1,6 +1,6 @@
-package pkg.exoad.mortality.core.ux;
+package pkg.exoad.mortality.util;
 import javax.swing.*;
-import pkg.exoad.mortality.app.AppGlobal;
+import pkg.exoad.mortality.AppGlobal;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -18,17 +18,17 @@ public class StreamedChangeNotifier<A>
 		listeners.add(fx);
 	}
 	
-	protected synchronized void dispose()
+	public synchronized void dispose()
 	{
 		listeners.clear();
 	}
 	
-	protected synchronized void notifyListeners(A value)
+	public synchronized void notifyListeners(A value)
 	{
 		AppGlobal.WORKER_2.submit(()->listeners.forEach(x->x.accept(value)));
 	}
 	
-	protected void notifyUIListeners(A value)
+	public void notifyUIListeners(A value)
 	{
 		listeners.forEach(x->SwingUtilities.invokeLater(()->x.accept(value)));
 	}

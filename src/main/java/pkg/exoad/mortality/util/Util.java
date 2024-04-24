@@ -1,6 +1,6 @@
-package pkg.exoad.mortality.core.ux;
+package pkg.exoad.mortality.util;
 import javax.swing.*;
-import pkg.exoad.mortality.app.AppGlobal;
+import pkg.exoad.mortality.AppGlobal;
 
 import java.awt.*;
 import java.io.*;

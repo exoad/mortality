@@ -1,7 +1,7 @@
-package pkg.exoad.mortality.app.ui;
+package pkg.exoad.mortality.ui;
 import javax.swing.*;
-import pkg.exoad.mortality.app.MortalityMood;
-import pkg.exoad.mortality.app.Util;
+import pkg.exoad.mortality.core.MortalityMood;
+import pkg.exoad.mortality.util.Util;
 
 import java.awt.*;
 public class RegionPainter

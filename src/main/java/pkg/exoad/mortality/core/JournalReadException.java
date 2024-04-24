@@ -1,4 +1,4 @@
-package pkg.exoad.mortality.core.ux;
+package pkg.exoad.mortality.core;
 public class JournalReadException
 	extends RuntimeException
 {

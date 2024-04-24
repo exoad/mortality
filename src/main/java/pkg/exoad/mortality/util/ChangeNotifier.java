@@ -1,6 +1,6 @@
-package pkg.exoad.mortality.core.ux;
+package pkg.exoad.mortality.util;
 import javax.swing.*;
-import pkg.exoad.mortality.app.AppGlobal;
+import pkg.exoad.mortality.AppGlobal;
 
 import java.util.ArrayList;
 public class ChangeNotifier //name inspried by flutter's changenotifier :)
@@ -17,17 +17,17 @@ public class ChangeNotifier //name inspried by flutter's changenotifier :)
 		listeners.add(r);
 	}
 	
-	protected synchronized void dispose()
+	public synchronized void dispose()
 	{
 		listeners.clear();
 	}
 	
-	protected synchronized void notifyListeners()
+	public synchronized void notifyListeners()
 	{
 		AppGlobal.WORKER_2.submit(()->listeners.forEach(Runnable::run));
 	}
 	
-	protected void notifyUIListeners()
+	public void notifyUIListeners()
 	{
 		listeners.forEach(SwingUtilities::invokeLater);
 	}

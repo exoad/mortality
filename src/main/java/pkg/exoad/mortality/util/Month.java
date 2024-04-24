@@ -1,4 +1,4 @@
-package pkg.exoad.mortality.core.ux;
+package pkg.exoad.mortality.util;
 public enum Month //we dont handle edge cases around here for leap years (nuh uh)
 {
 	JANUARY(1,31),
