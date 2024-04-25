@@ -21,7 +21,9 @@ public final class Util
 		);
 	}
 	
-	public static Month lookupMonthStrForced(String monthName)
+	public static Month lookupMonthStrForced(
+		String monthName
+	)
 	{
 		for(Month r: Month.values())
 			if(r
@@ -47,20 +49,52 @@ public final class Util
 		assert value!=null;
 		try
 		{
-			FileOutputStream fos=new FileOutputStream(path);
-			ObjectOutputStream oos=new ObjectOutputStream(fos);
+			FileOutputStream fos=
+				new FileOutputStream(path);
+			ObjectOutputStream oos=new ObjectOutputStream(
+				fos);
 			oos.writeObject(value);
 		}catch(IOException e)
 		{
-			Debugger.info("Failed to write object (of type="+value
-				.getClass()
-				.getCanonicalName()+"), located at: "+path);
+			Debugger.info("Failed to write object (of "+
+						  "type="+value
+							  .getClass()
+							  .getCanonicalName()+"), " +
+						  "located at: "+path);
 		}
+	}
+	
+	public static <T> String arrayNotation(
+		boolean useSpaceAfterComma,T[] values
+	)
+	{
+		if(values==null||values.length==0)
+			return "[]";
+		StringBuilder sb=new StringBuilder("[");
+		for(int i=0;i<values.length;i++)
+		{
+			assert values[i]!=null:"An expected value for " +
+								   "array "+
+								   "notation conversion " +
+								   "cannot be "+
+								   "null!";
+			sb.append(values[i].toString());
+			if(i!=values.length-1)
+			{
+				sb.append(",");
+				if(useSpaceAfterComma)
+					sb.append(" ");
+			}
+		}
+		return sb
+			.append("]")
+			.toString();
 	}
 	
 	public static String structurizeException(
 		Throwable e
-	) //this gets the entire stack trace even if they maybe internal and irrelevant
+	) //this gets the entire stack trace even if they
+	// maybe internal and irrelevant
 	{
 		StringWriter sw=new StringWriter();
 		PrintWriter pw=new PrintWriter(sw);
@@ -76,22 +110,28 @@ public final class Util
 		try
 		{
 			FileInputStream fis=new FileInputStream(path);
-			ObjectInputStream ois=new ObjectInputStream(fis);
+			ObjectInputStream ois=
+				new ObjectInputStream(fis);
 			obj=(A)ois.readObject();
 		}catch(IOException|ClassNotFoundException e)
 		{
 			if(defaultObj!=null)
-				Debugger.info("Failed to read object (of type="+defaultObj
-					.getClass()
-					.getCanonicalName()+"), located at: "+path);
+				Debugger.info(
+					"Failed to read object (of type="+defaultObj
+						.getClass()
+						.getCanonicalName()+"), located "+
+					"at: "+path);
 			else
 				Debugger.info("Failed to load object.");
 			throw new RuntimeException(e);
 		}
-		Optional<A> res=obj==null?(defaultObj==null?Optional.empty():Optional.of(
+		Optional<A> res=obj==null?(defaultObj==null?
+			Optional.empty():Optional.of(
 			defaultObj)):Optional.of(
 			obj);
-		Debugger.info("OBJ_DESERIAL["+path+"] -> isPresent="+res.isPresent());
+		Debugger.info("OBJ_DESERIAL["+path+"] -> " +
+					  "isPresent"+
+					  "="+res.isPresent());
 		return res;
 	}
 	
@@ -110,17 +150,22 @@ public final class Util
 		final JComponent e
 	) //this function shld not appear in production code
 	{
-		e.setBorder(BorderFactory.createLineBorder(new Color(
-			AppGlobal
-				.getRngInstance()
-				.nextInt(256),
-			AppGlobal
-				.getRngInstance()
-				.nextInt(256),
-			AppGlobal
-				.getRngInstance()
-				.nextInt(256)
-		),2,false)); //fuck rounded cuz it doesnt tell us exact pt of ref
+		e.setBorder(BorderFactory.createLineBorder(
+			new Color(
+				AppGlobal
+					.getRngInstance()
+					.nextInt(256),
+				AppGlobal
+					.getRngInstance()
+					.nextInt(256),
+				AppGlobal
+					.getRngInstance()
+					.nextInt(256)
+			),
+			2,
+			false
+		)); //fuck rounded cuz it doesnt tell us exact pt
+		// of ref
 	}
 	
 	public static Graphics2D makeCapable(Graphics2D g2)
@@ -145,13 +190,16 @@ public final class Util
 	}
 	
 	/**
-	 * This is a hack for padding and thus may or may not work
+	 * This is a hack for padding and thus may or may not
+	 * work
 	 *
 	 * @param e component
 	 * @param side side
 	 * @param amount how much
 	 */
-	public static void padSingle(JComponent e,final Side side,final int amount)
+	public static void padSingle(
+		JComponent e,final Side side,final int amount
+	)
 	{
 		e=Objects.requireNonNull(e);
 		switch(side)
@@ -162,9 +210,24 @@ public final class Util
 				0,
 				0
 			));
-			case TOP -> e.setBorder(BorderFactory.createEmptyBorder(amount,0,0,0));
-			case LEFT -> e.setBorder(BorderFactory.createEmptyBorder(0,0,amount,0));
-			case RIGHT -> e.setBorder(BorderFactory.createEmptyBorder(0,0,0,amount));
+			case TOP -> e.setBorder(BorderFactory.createEmptyBorder(
+				amount,
+				0,
+				0,
+				0
+			));
+			case LEFT -> e.setBorder(BorderFactory.createEmptyBorder(
+				0,
+				0,
+				amount,
+				0
+			));
+			case RIGHT -> e.setBorder(BorderFactory.createEmptyBorder(
+				0,
+				0,
+				0,
+				amount
+			));
 		}
 	}
 }
