@@ -1,5 +1,6 @@
 package pkg.exoad.mortality.util;
 import pkg.exoad.mortality.AppGlobal;
+import pkg.exoad.mortality.ui.InformContext;
 
 import java.util.logging.Logger;
 public final class Debugger
@@ -22,6 +23,15 @@ public final class Debugger
 	{
 		if(AppGlobal.APP_USE_LOGGER)
 			LOG.info(String.format("[%s] (i): %s",Chrono.formatLog(),message));
+	}
+	
+	public static void panic(String message,Throwable cause)
+	{
+		Debugger.warn("[PORGRAM_PANICKED] "+message);
+		InformContext
+			.errorVariant(message,cause.toString())
+			.run();
+		throw new RuntimeException(cause);
 	}
 	
 	public static void warn(String message)
