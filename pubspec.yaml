@@ -1,0 +1,33 @@
+name: mortality_app
+description: "A new Flutter project."
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.1
+
+dependencies:
+  animations: ^2.0.11
+  build_runner: ^2.4.13
+  flutter:
+    sdk: flutter
+  flutter_displaymode: ^0.6.0
+  hive: ^2.2.3
+  json_annotation: ^4.9.0
+  json_serializable: ^6.8.0
+  logging: ^1.2.0
+  path_provider: ^2.1.4
+  provider: ^6.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
