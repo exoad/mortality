@@ -10,18 +10,18 @@ class PopInBlob extends StatefulWidget {
   final double endOpacity;
   const PopInBlob(
       {super.key,
-      required this.child,
       this.startOpacity = 0,
       this.endOpacity = 1,
       required this.delay,
-      this.duration = const Duration(milliseconds: 880)});
+      this.duration = const Duration(milliseconds: 880),
+      required this.child});
 
   @override
   State<PopInBlob> createState() => _PopInBlobState();
 }
 
 class _PopInBlobState extends State<PopInBlob>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late AnimationController _animController;
   late Animation<double> _animScale;
   late Animation<double> _animOpacity;
@@ -36,8 +36,8 @@ class _PopInBlobState extends State<PopInBlob>
     _animOpacity = Tween<double>(
             begin: widget.startOpacity, end: widget.endOpacity)
         .animate(_animController);
-    Timer(Duration(milliseconds: widget.delay),
-        _animController.forward);
+    Future<void>.delayed(Duration(milliseconds: widget.delay),
+        () => _animController.forward());
   }
 
   @override
@@ -59,26 +59,26 @@ class _PopInBlobState extends State<PopInBlob>
   }
 }
 
-class SlideBlob extends StatefulWidget {
+class SlideInBlob extends StatefulWidget {
   final Widget child;
   final int delay;
   final Duration duration;
   final Curve curve;
   final Offset startOffset;
 
-  const SlideBlob(
+  const SlideInBlob(
       {super.key,
       required this.child,
       required this.delay,
       this.startOffset = const Offset(0, 0.4),
-      this.curve = Curves.easeInExpo,
+      this.curve = Curves.easeInOut,
       this.duration = const Duration(milliseconds: 880)});
 
   @override
-  State<SlideBlob> createState() => _SlideBlobState();
+  State<SlideInBlob> createState() => _SlideInBlobState();
 }
 
-class _SlideBlobState extends State<SlideBlob>
+class _SlideInBlobState extends State<SlideInBlob>
     with TickerProviderStateMixin {
   late AnimationController _animController;
   late Animation<Offset> _animOffset;
