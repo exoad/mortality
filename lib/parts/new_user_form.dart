@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mortality_app/core/user_profile_data.dart';
 import 'package:mortality_app/debug.dart';
 import 'package:mortality_app/parts/blobs/fade_blob.dart';
 import 'package:mortality_app/parts/blobs/gesture_action_blob.dart';
@@ -157,7 +158,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                                                               .pop())));
                                     },
                                   )),
-                            const SizedBox(height: 50),
+                            const SizedBox(height: 80),
                           ]),
                         ),
                       ),
@@ -303,50 +304,129 @@ class _PersonalizationPageState extends State<PersonalizationPage>
           },
           scrollDirection: Axis.horizontal,
           children: <Widget>[
-            Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  const GradientBlob(
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: <double>[
-                          0.3,
-                          0.7
-                        ],
-                        colors: <Color>[
-                          kPoprockPrimary_2,
-                          kPoprockPrimary_1
-                        ]),
-                    child: Icon(Icons.supervised_user_circle_rounded,
-                        size: 78),
-                  ),
-                  const SizedBox(height: 14),
-                  const Text("Lets get to know you",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: kStylizedFontFamily,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 16),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 36),
-                    child: Text(
-                        "By providing accurate information, we can provide you with the most accurate data and insights.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal)),
-                  ),
-                  const SizedBox(height: 54),
-                  SPECIFIC_GradientIntrinsicButtonBlob(
-                      text: "Next",
-                      icon: Icons.keyboard_arrow_right_rounded,
-                      onPressed: () => toPage(1))
-                ]),
+            PersonalizationPage_StartingPage(
+                pageController: _pageController),
+            PersonalizationPage_EnterName(
+                pageController: _pageController)
           ]),
     );
+  }
+}
+
+class PersonalizationPage_EnterName extends StatelessWidget {
+  const PersonalizationPage_EnterName({
+    super.key,
+    required PageController pageController,
+  }) : _pageController = pageController;
+
+  final PageController _pageController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const GradientBlob(
+            gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.centerRight,
+                stops: <double>[
+                  0.4,
+                  0.6
+                ],
+                colors: <Color>[
+                  kPoprockPrimary_2,
+                  kPoprockPrimary_1
+                ]),
+            child: Icon(Icons.person_pin_rounded, size: 80),
+          ),
+          const SizedBox(height: 14),
+          const Text("What's your name?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: kStylizedFontFamily,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          const Text("We will you address using this name",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 12, fontWeight: FontWeight.normal)),
+          const SizedBox(height: 18),
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width * 0.8,
+            child: TextFormField(
+                decoration: const InputDecoration(
+                    hintText: UserProfileDefaults.defaultName)),
+          ),
+          const SizedBox(height: 54),
+          SPECIFIC_GradientIntrinsicButtonBlob(
+              text: "Next",
+              icon: Icons.keyboard_arrow_right_rounded,
+              onPressed: () => _pageController.animateToPage(
+                    2,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  ))
+        ]);
+  }
+}
+
+class PersonalizationPage_StartingPage extends StatelessWidget {
+  const PersonalizationPage_StartingPage({
+    super.key,
+    required PageController pageController,
+  }) : _pageController = pageController;
+
+  final PageController _pageController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          const GradientBlob(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: <double>[
+                  0.3,
+                  0.7
+                ],
+                colors: <Color>[
+                  kPoprockPrimary_2,
+                  kPoprockPrimary_1
+                ]),
+            child:
+                Icon(Icons.supervised_user_circle_rounded, size: 78),
+          ),
+          const SizedBox(height: 14),
+          const Text("Lets get to know you",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: kStylizedFontFamily,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 36),
+            child: Text(
+                "By providing accurate information, we can provide you with the most accurate data and insights.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 14, fontWeight: FontWeight.normal)),
+          ),
+          const SizedBox(height: 54),
+          SPECIFIC_GradientIntrinsicButtonBlob(
+              text: "Next",
+              icon: Icons.keyboard_arrow_right_rounded,
+              onPressed: () => _pageController.animateToPage(
+                    1,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  ))
+        ]);
   }
 }
 

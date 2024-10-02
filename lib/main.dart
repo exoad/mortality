@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:hive/hive.dart';
 import 'package:mortality_app/core/data_manager.dart';
@@ -14,7 +13,6 @@ import 'package:path_provider/path_provider.dart';
 void main() async {
   DateTime start = DateTime.now();
   WidgetsFlutterBinding.ensureInitialized();
-  timeDilation = 1.1;
   Debug().init();
   if (Platform.isAndroid) {
     Debug().warn("Detected ANDROID_PRESET");
@@ -42,6 +40,23 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Mortality',
           theme: ThemeData(
+              textSelectionTheme: TextSelectionThemeData(
+                  selectionHandleColor: kForeground,
+                  selectionColor: kForeground.withOpacity(0.5),
+                  cursorColor: kForeground),
+              inputDecorationTheme: const InputDecorationTheme(
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: kForeground),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: kForeground),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: kForeground),
+                ),
+                activeIndicatorBorder: BorderSide(color: kForeground),
+                labelStyle: TextStyle(color: kForeground),
+              ),
               appBarTheme: const AppBarTheme(
                   backgroundColor: kBackground,
                   foregroundColor: kForeground,
