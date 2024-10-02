@@ -56,49 +56,54 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
           },
           children: <Widget>[
             Center(
-                child: Stack(
-                    alignment: Alignment.center,
-                    children: <Widget>[
-                  const Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        FadeInBlob(
-                          delay: 0,
-                          duration: Duration(milliseconds: 600),
-                          child: Text("Welcome to",
-                              style: TextStyle(
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.normal)),
-                        ),
-                        SizedBox(height: 14),
-                        SlideBlob(
-                            delay: 240,
-                            child: Text("Mortality",
+                child: AnimatedOpacity(
+              opacity: _curr == 0 ? 1 : 0,
+              duration: const Duration(milliseconds: 300),
+              child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FadeInBlob(
+                            delay: 0,
+                            duration: Duration(milliseconds: 600),
+                            child: Text("Welcome to",
                                 style: TextStyle(
-                                    fontSize: 54,
-                                    fontWeight: FontWeight.w800))),
-                        SizedBox(height: 20),
-                        SlideBlob(
-                            curve: Curves.easeInOut,
-                            duration: Duration(milliseconds: 800),
-                            delay: 800,
-                            startOffset: Offset(0, 0.9),
-                            child: Text(
-                                "\"Literally a life tracker\"",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.normal))),
-                      ]),
-                  Opacity(
-                    opacity: 0.1,
-                    child: Image(
-                        image: const AssetImage(
-                            "assets/skull_backdrop.png"),
-                        width: backdropWidthHeight,
-                        height: backdropWidthHeight),
-                  ),
-                ])),
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.normal)),
+                          ),
+                          SizedBox(height: 14),
+                          SlideBlob(
+                              delay: 240,
+                              child: Text("Mortality",
+                                  style: TextStyle(
+                                      fontSize: 54,
+                                      fontWeight: FontWeight.w800))),
+                          SizedBox(height: 20),
+                          SlideBlob(
+                              curve: Curves.easeInOut,
+                              duration: Duration(milliseconds: 800),
+                              delay: 800,
+                              startOffset: Offset(0, 0.9),
+                              child: Text(
+                                  "\"Literally a life tracker\"",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight:
+                                          FontWeight.normal))),
+                        ]),
+                    Opacity(
+                      opacity: 0.1,
+                      child: Image(
+                          image: const AssetImage(
+                              "assets/skull_backdrop.png"),
+                          width: backdropWidthHeight,
+                          height: backdropWidthHeight),
+                    ),
+                  ]),
+            )),
             const Center(
               child: Text('Second Page'),
             ),
@@ -116,7 +121,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                 opacity: _curr != 0 ? 0 : 1,
                 duration: const Duration(milliseconds: 300),
                 child: const SlideBlob(
-                    delay: 2400,
+                    delay: 1400,
                     startOffset: Offset(0, 0.1),
                     child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
