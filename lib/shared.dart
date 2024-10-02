@@ -14,6 +14,7 @@ const Color kPoprockPrimary_2 = Color.fromARGB(255, 250, 185, 22);
 const Color kError = Color.fromRGBO(255, 0, 0, 1);
 const String kStylizedFontFamily = "Playfair Display";
 const String kDefaultFontFamily = "Montserrat";
+const int kMaxCharsUserName = 20;
 final Random sRNG = Random();
 
 final class SharedLocaleChar {

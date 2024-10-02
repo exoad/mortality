@@ -8,6 +8,7 @@ import 'package:mortality_app/parts/blobs/lazy_show_up_blob.dart';
 import 'package:mortality_app/parts/blobs/show_up_blob.dart';
 import 'package:mortality_app/shared.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:segmented_button_slide/segmented_button_slide.dart';
 
 class NewUserFormPart extends StatelessWidget {
   const NewUserFormPart({super.key});
@@ -259,7 +260,6 @@ class PersonalizationPage extends StatefulWidget {
 class _PersonalizationPageState extends State<PersonalizationPage>
     with SingleTickerProviderStateMixin {
   late PageController _pageController;
-  late TabController _tabController;
   int _curr;
 
   _PersonalizationPageState() : _curr = 0;
@@ -268,13 +268,11 @@ class _PersonalizationPageState extends State<PersonalizationPage>
   void initState() {
     super.initState();
     _pageController = PageController();
-    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
   void dispose() {
     _pageController.dispose();
-    _tabController.dispose();
     super.dispose();
   }
 
@@ -299,7 +297,7 @@ class _PersonalizationPageState extends State<PersonalizationPage>
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
           onPageChanged: (int page) {
-            _tabController.index = page;
+            Debug().info("PersonalizationPage page update $page");
             setState(() => _curr = page);
           },
           scrollDirection: Axis.horizontal,
@@ -307,9 +305,179 @@ class _PersonalizationPageState extends State<PersonalizationPage>
             PersonalizationPage_StartingPage(
                 pageController: _pageController),
             PersonalizationPage_EnterName(
+                pageController: _pageController),
+            PersonalizationPage_SelectSex(
+                pageController: _pageController),
+            PersonalizationPage_EnterBDay(
                 pageController: _pageController)
           ]),
     );
+  }
+}
+
+class PersonalizationPage_SelectSex extends StatelessWidget {
+  const PersonalizationPage_SelectSex({
+    super.key,
+    required PageController pageController,
+  }) : _pageController = pageController;
+
+  final PageController _pageController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const GradientBlob(
+            gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.bottomRight,
+                stops: <double>[
+                  0.4,
+                  0.6
+                ],
+                colors: <Color>[
+                  kPoprockPrimary_2,
+                  kPoprockPrimary_1
+                ]),
+            child: Icon(Icons.wc_rounded, size: 80),
+          ),
+          const SizedBox(height: 14),
+          const Text("What's your sex?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: kStylizedFontFamily,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          const Text(
+              "We will use this to provide you with\nmore accurate data.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 13, fontWeight: FontWeight.normal)),
+          const SizedBox(height: 40),
+          const SelectSexSegmentedButton(),
+          const SizedBox(height: 54),
+          SPECIFIC_GradientIntrinsicButtonBlob(
+              text: "Next",
+              icon: Icons.keyboard_arrow_right_rounded,
+              onPressed: () => _pageController.animateToPage(
+                    3,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  ))
+        ]);
+  }
+}
+
+class SelectSexSegmentedButton extends StatefulWidget {
+  const SelectSexSegmentedButton({super.key});
+
+  @override
+  State<SelectSexSegmentedButton> createState() =>
+      _SelectSexSegmentedButtonState();
+}
+
+class _SelectSexSegmentedButtonState
+    extends State<SelectSexSegmentedButton> {
+  int _selected = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.sizeOf(context).width * 0.8,
+      height: 100,
+      child: SegmentedButtonSlide(
+          selectedEntry: _selected,
+          onChange: (int index) {
+            setState(() => _selected = index);
+          },
+          borderRadius: BorderRadius.circular(kRRectArc),
+          entries: const <SegmentedButtonSlideEntry>[
+            SegmentedButtonSlideEntry(
+                icon: Icons.female_rounded, label: "Female"),
+            SegmentedButtonSlideEntry(
+                icon: Icons.male_rounded, label: "Male")
+          ],
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          selectedTextStyle: const TextStyle(
+              color: kBackground,
+              fontSize: 16,
+              fontWeight: FontWeight.bold),
+          slideShadow: <BoxShadow>[
+            BoxShadow(
+                color: (_selected == 0
+                        ? const Color.fromARGB(255, 255, 59, 124)
+                        : const Color.fromARGB(255, 68, 171, 255))
+                    .withOpacity(0.76),
+                blurRadius: 8,
+                spreadRadius: 4,
+                offset: Offset(sRNG.nextDouble() * 2 - 1,
+                    sRNG.nextDouble() * 2 - 1))
+          ],
+          unselectedTextStyle: const TextStyle(
+              color: kForeground,
+              fontSize: 16,
+              fontWeight: FontWeight.normal),
+          colors: SegmentedButtonSlideColors(
+              backgroundSelectedColor: _selected == 0
+                  ? const Color.fromARGB(255, 255, 59, 124)
+                  : const Color.fromARGB(255, 68, 171, 255),
+              barColor: kBackground)),
+    );
+  }
+}
+
+class PersonalizationPage_EnterBDay extends StatelessWidget {
+  const PersonalizationPage_EnterBDay({
+    super.key,
+    required PageController pageController,
+  }) : _pageController = pageController;
+
+  final PageController _pageController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const GradientBlob(
+            gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                stops: <double>[
+                  0.3,
+                  0.7
+                ],
+                colors: <Color>[
+                  kPoprockPrimary_2,
+                  kPoprockPrimary_1
+                ]),
+            child: Icon(Icons.cake_rounded, size: 80),
+          ),
+          const SizedBox(height: 14),
+          const Text("When is your birthday?",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: kStylizedFontFamily,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          const Text("We will use this to base our calculations on.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 13, fontWeight: FontWeight.normal)),
+          const SizedBox(height: 40),
+          const SizedBox(height: 54),
+          SPECIFIC_GradientIntrinsicButtonBlob(
+              text: "Next",
+              icon: Icons.keyboard_arrow_right_rounded,
+              onPressed: () => _pageController.animateToPage(
+                    4,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  ))
+        ]);
   }
 }
 
@@ -348,15 +516,24 @@ class PersonalizationPage_EnterName extends StatelessWidget {
                   fontSize: 30,
                   fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
-          const Text("We will you address using this name",
+          const Text("We will address you using this name",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 12, fontWeight: FontWeight.normal)),
-          const SizedBox(height: 18),
+                  fontSize: 13, fontWeight: FontWeight.normal)),
+          const SizedBox(height: 40),
           SizedBox(
-            width: MediaQuery.sizeOf(context).width * 0.8,
+            width: MediaQuery.sizeOf(context).width * 0.76,
             child: TextFormField(
+                maxLines: 1,
+                minLines: 1,
+                maxLength: kMaxCharsUserName,
+                keyboardAppearance: Brightness.dark,
+                textAlign: TextAlign.center,
                 decoration: const InputDecoration(
+                    hintStyle: TextStyle(
+                        fontFamily: kDefaultFontFamily,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal),
                     hintText: UserProfileDefaults.defaultName)),
           ),
           const SizedBox(height: 54),

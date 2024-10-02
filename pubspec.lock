@@ -235,6 +235,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -293,6 +298,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.19.0"
   io:
     dependency: transitive
     description:
@@ -581,6 +594,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
+  scrollable_clean_calendar:
+    dependency: "direct main"
+    description:
+      name: scrollable_clean_calendar
+      sha256: e68f13b49dd70f70d6e6cbb39e3a76d2ff920671cd9b10a33370dd298c0f595e
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.0"
+  scrollable_positioned_list:
+    dependency: transitive
+    description:
+      name: scrollable_positioned_list
+      sha256: "1b54d5f1329a1e263269abc9e2543d90806131aa14fe7c6062a8054d57249287"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.8"
+  segmented_button_slide:
+    dependency: "direct main"
+    description:
+      name: segmented_button_slide
+      sha256: d0563010c79a101340cfc127ee5a27c8c7d8640d5ef857a36e9d0b46bc01fed4
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   shelf:
     dependency: transitive
     description:
