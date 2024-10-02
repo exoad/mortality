@@ -8,6 +8,7 @@ import 'package:mortality_app/core/data_manager.dart';
 import 'package:mortality_app/debug.dart';
 import 'package:mortality_app/parts/new_user_form.dart';
 import 'package:mortality_app/shared.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() async {
@@ -36,12 +37,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Mortality',
-        theme: ThemeData(
-            brightness: Brightness.dark, primaryColor: kForeground),
-        themeMode: ThemeMode.dark,
-        home: const NewUserFormPart());
+    return OKToast(
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Mortality',
+          theme: ThemeData(
+              appBarTheme: const AppBarTheme(
+                  backgroundColor: kBackground,
+                  foregroundColor: kForeground,
+                  titleTextStyle: TextStyle(
+                      color: kForeground,
+                      fontSize: 24,
+                      fontFamily: kDefaultFontFamily)),
+              fontFamily: kDefaultFontFamily,
+              brightness: Brightness.dark,
+              primaryColor: kForeground),
+          themeMode: ThemeMode.dark,
+          home: const NewUserFormPart()),
+    );
   }
 }

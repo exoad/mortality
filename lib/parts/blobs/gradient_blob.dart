@@ -28,10 +28,10 @@ class GradientTextBlob extends StatelessWidget {
 
 class GradientBlob extends StatelessWidget {
   const GradientBlob({
-    required this.child,
     this.blendMode = BlendMode.srcIn,
     super.key,
     required this.gradient,
+    required this.child,
   });
 
   final Widget child;

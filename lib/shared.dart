@@ -11,5 +11,12 @@ const Color kForeground = Colors.white;
 const Color kTertiary = Color.fromARGB(255, 172, 172, 172);
 const Color kPoprockPrimary_1 = Color.fromARGB(255, 255, 38, 103);
 const Color kPoprockPrimary_2 = Color.fromARGB(255, 250, 185, 22);
-
+const String kStylizedFontFamily = "Playfair Display";
+const String kDefaultFontFamily = "Montserrat";
 final Random sRNG = Random();
+
+final class SharedLocaleChar {
+  SharedLocaleChar._();
+
+  static const String diamondOutlinedCenteredDot = "⟐";
+}
