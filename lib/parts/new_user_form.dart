@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mortality_app/parts/blobs/fade_blob.dart';
+import 'package:mortality_app/parts/blobs/gradient_text_blob.dart';
 import 'package:mortality_app/parts/blobs/show_up_blob.dart';
+import 'package:mortality_app/shared.dart';
 
 class NewUserFormPart extends StatelessWidget {
   const NewUserFormPart({super.key});
@@ -43,7 +45,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
   @override
   Widget build(BuildContext context) {
     double backdropWidthHeight =
-        MediaQuery.of(context).size.width * 0.96;
+        MediaQuery.of(context).size.width * 2;
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
@@ -75,11 +77,24 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                           ),
                           SizedBox(height: 14),
                           SlideBlob(
-                              delay: 240,
-                              child: Text("Mortality",
-                                  style: TextStyle(
-                                      fontSize: 54,
-                                      fontWeight: FontWeight.w800))),
+                              delay: 480,
+                              child: GradientTextBlob(
+                                "Mortality",
+                                style: TextStyle(
+                                    fontSize: 70,
+                                    fontWeight: FontWeight.w800),
+                                gradient: LinearGradient(
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.bottomRight,
+                                    stops: <double>[
+                                      0.35,
+                                      0.65
+                                    ],
+                                    colors: <Color>[
+                                      kPoprockPrimary_2,
+                                      kPoprockPrimary_1
+                                    ]),
+                              )),
                           SizedBox(height: 20),
                           SlideBlob(
                               curve: Curves.easeInOut,
@@ -105,7 +120,46 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                   ]),
             )),
             const Center(
-              child: Text('Second Page'),
+              child: Padding(
+                padding: EdgeInsets.only(top: 80, bottom: 30),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Permissions",
+                          style: TextStyle(
+                              fontSize: 56,
+                              fontWeight: FontWeight.normal)),
+                      SizedBox(height: 60),
+                      NewUserPermissionsField(
+                          icon: Icons.health_and_safety_rounded,
+                          gradientEnd: Alignment.bottomRight,
+                          gradientStart: Alignment.topLeft,
+                          stops: <double>[0.3, 0.7],
+                          title: "Personalization",
+                          description:
+                              "We need some personal details about you (such as date of birth date) in order to provide you with the most accurate information.",
+                          invertColorPos: true),
+                      SizedBox(height: 40),
+                      NewUserPermissionsField(
+                          icon: Icons.phone_iphone_rounded,
+                          gradientEnd: Alignment.centerRight,
+                          gradientStart: Alignment.topLeft,
+                          stops: <double>[0.4, 0.6],
+                          title: "Storage",
+                          description:
+                              "Mortality uses storage to save your data and settings.",
+                          invertColorPos: true),
+                      SizedBox(height: 40),
+                      NewUserPermissionsField(
+                          icon: Icons.location_on_rounded,
+                          stops: <double>[0.2, 0.8],
+                          title: "Location",
+                          description:
+                              "Mortality uses location to serve you with relevant personalized information.",
+                          gradientStart: Alignment.topRight,
+                          gradientEnd: Alignment.centerRight),
+                    ]),
+              ),
             ),
             const Center(
               child: Text('Third Page'),
@@ -151,6 +205,66 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
             ],
           ),
         ),
+      ],
+    );
+  }
+}
+
+class NewUserPermissionsField extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final List<double> stops;
+  final String description;
+  final Alignment gradientStart;
+  final Alignment gradientEnd;
+  final bool invertColorPos;
+  const NewUserPermissionsField(
+      {super.key,
+      required this.icon,
+      required this.gradientEnd,
+      required this.gradientStart,
+      required this.stops,
+      this.invertColorPos = true,
+      required this.title,
+      required this.description});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        GradientBlob(
+          gradient: LinearGradient(
+              begin: gradientStart,
+              end: gradientEnd,
+              stops: stops,
+              colors: invertColorPos
+                  ? const <Color>[
+                      kPoprockPrimary_2,
+                      kPoprockPrimary_1
+                    ]
+                  : const <Color>[
+                      kPoprockPrimary_1,
+                      kPoprockPrimary_2
+                    ]),
+          child: Icon(icon, size: 44, color: Colors.white),
+        ),
+        const SizedBox(height: 6),
+        Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50),
+            child: Text.rich(
+              TextSpan(children: <InlineSpan>[
+                TextSpan(
+                    text: "$title\n",
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                TextSpan(
+                    text: description,
+                    style: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.normal)),
+              ]),
+              textAlign: TextAlign.center,
+            ))
       ],
     );
   }
