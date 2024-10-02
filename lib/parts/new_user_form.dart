@@ -8,6 +8,9 @@ import 'package:mortality_app/parts/blobs/lazy_show_up_blob.dart';
 import 'package:mortality_app/parts/blobs/show_up_blob.dart';
 import 'package:mortality_app/shared.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:scrollable_clean_calendar/controllers/clean_calendar_controller.dart';
+import 'package:scrollable_clean_calendar/scrollable_clean_calendar.dart';
+import 'package:scrollable_clean_calendar/utils/enums.dart';
 import 'package:segmented_button_slide/segmented_button_slide.dart';
 
 class NewUserFormPart extends StatelessWidget {
@@ -137,7 +140,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                             const SizedBox(height: 46),
                             if (!_permsGranted)
                               LazySlideInBlob(
-                                  delay: 1500,
+                                  delay: 1000,
                                   startOffset: const Offset(0, 0.2),
                                   child: TextButtonBlob.primary(
                                     "Grant and Personalize",
@@ -429,12 +432,23 @@ class _SelectSexSegmentedButtonState
 }
 
 class PersonalizationPage_EnterBDay extends StatelessWidget {
-  const PersonalizationPage_EnterBDay({
+  PersonalizationPage_EnterBDay({
     super.key,
     required PageController pageController,
   }) : _pageController = pageController;
 
   final PageController _pageController;
+  final CleanCalendarController _calendarController =
+      CleanCalendarController(
+          minDate: DateTime.now()
+              .subtract(const Duration(days: 365 * 140)),
+          maxDate: DateTime.now(),
+          onRangeSelected: (DateTime start, DateTime? end) {
+            /* ignore */
+          },
+          onAfterMaxDateTapped: (DateTime time) {/* ignore */},
+          weekdayStart: DateTime.monday,
+          rangeMode: false);
 
   @override
   Widget build(BuildContext context) {
@@ -468,7 +482,19 @@ class PersonalizationPage_EnterBDay extends StatelessWidget {
               style: TextStyle(
                   fontSize: 13, fontWeight: FontWeight.normal)),
           const SizedBox(height: 40),
-          const SizedBox(height: 54),
+          SizedBox(
+            width: MediaQuery.sizeOf(context).width * 0.86,
+            height: MediaQuery.sizeOf(context).width * 0.86,
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: ScrollableCleanCalendar(
+                  daySelectedBackgroundColor: kForeground,
+                  calendarController: _calendarController,
+                  layout: Layout.DEFAULT,
+                  calendarMainAxisSpacing: 4),
+            ),
+          ),
+          const SizedBox(height: 24),
           SPECIFIC_GradientIntrinsicButtonBlob(
               text: "Next",
               icon: Icons.keyboard_arrow_right_rounded,
