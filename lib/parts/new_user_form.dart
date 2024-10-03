@@ -7,7 +7,6 @@ import 'package:mortality_app/parts/blobs/gradient_blob.dart';
 import 'package:mortality_app/parts/blobs/lazy_show_up_blob.dart';
 import 'package:mortality_app/parts/blobs/show_up_blob.dart';
 import 'package:mortality_app/shared.dart';
-import 'package:mortality_app/util/extern/extern_color.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:segmented_button_slide/segmented_button_slide.dart';
@@ -462,7 +461,6 @@ class PersonalizationPage_EnterBDay extends StatelessWidget {
               style: TextStyle(
                   fontSize: 13, fontWeight: FontWeight.normal)),
           const SizedBox(height: 20),
-          // TODO: Use calendar_date_picker2 instead of the scrollwheeldatepicker
           const EnterBDay_CalendarWidget(),
           const SizedBox(height: 14),
           SPECIFIC_GradientIntrinsicButtonBlob(

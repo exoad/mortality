@@ -41,8 +41,8 @@ class _LazySlideInBlobState extends State<LazySlideInBlob>
 
   @override
   void dispose() {
-    super.dispose();
     _animController.dispose();
+    super.dispose();
   }
 
   @override
