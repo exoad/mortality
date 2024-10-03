@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:mortality_app/shared.dart';
+import 'package:mortality_app/util/extern/extern_color.dart';
 
 class Debug {
   Debug._();
@@ -29,4 +31,20 @@ class Debug {
   StreamSubscription<LogRecord> listen(
           void Function(LogRecord record) listener) =>
       _logger.onRecord.asBroadcastStream().listen(listener);
+}
+
+class DebugChildWidget extends StatelessWidget {
+  final Widget child;
+
+  const DebugChildWidget({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        decoration: BoxDecoration(
+            border:
+                Border.all(color: ColorUtils.randomColor(), width: 4),
+            borderRadius: BorderRadius.circular(0)),
+        child: child);
+  }
 }

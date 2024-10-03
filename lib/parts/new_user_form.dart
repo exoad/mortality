@@ -7,8 +7,9 @@ import 'package:mortality_app/parts/blobs/gradient_blob.dart';
 import 'package:mortality_app/parts/blobs/lazy_show_up_blob.dart';
 import 'package:mortality_app/parts/blobs/show_up_blob.dart';
 import 'package:mortality_app/shared.dart';
+import 'package:mortality_app/util/extern/extern_color.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:scroll_wheel_date_picker/scroll_wheel_date_picker.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:segmented_button_slide/segmented_button_slide.dart';
 
 class NewUserFormPart extends StatelessWidget {
@@ -61,8 +62,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         PageView(
-          physics: const AlwaysScrollableScrollPhysics(
-              parent: BouncingScrollPhysics()),
+          physics: const NeverScrollableScrollPhysics(),
           allowImplicitScrolling: false,
           controller: _pageController,
           onPageChanged: (int page) {
@@ -135,7 +135,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                                     "We utilize environmental data to tailor towards you.",
                                 gradientStart: Alignment.topRight,
                                 gradientEnd: Alignment.centerRight),
-                            const SizedBox(height: 46),
+                            const SizedBox(height: 26),
                             if (!_permsGranted)
                               LazySlideInBlob(
                                   delay: 1000,
@@ -160,7 +160,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                                                               .pop())));
                                     },
                                   )),
-                            const SizedBox(height: 80),
+                            const SizedBox(height: 100),
                           ]),
                         ),
                       ),
@@ -174,73 +174,77 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              AnimatedOpacity(
-                opacity: _curr != 0 ? 0 : 1,
-                duration: const Duration(milliseconds: 300),
-                child: const SlideInBlob(
-                  delay: 1400,
-                  startOffset: Offset(0, 0.1),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.swipe_left_rounded,
-                          size: 20, color: kForeground),
-                      SizedBox(width: 8),
-                      Text("Swipe or use the arrows to navigate",
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal)),
-                    ],
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 26),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                AnimatedOpacity(
+                  opacity: _curr != 0 ? 0 : 1,
+                  duration: const Duration(milliseconds: 300),
+                  child: const SlideInBlob(
+                    delay: 1400,
+                    startOffset: Offset(0, 0.1),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.touch_app_rounded,
+                            size: 20, color: kForeground),
+                        SizedBox(width: 8),
+                        Text("Tap the arrows to navigate",
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 18),
-              ScrollerWidget(
-                currentPageIndex: _curr,
-                tabController: _tabController,
-                onUpdateCurrentPageIndex:
-                    (/* page == next page */ int page) {
-                  Debug().info(
-                      "NEW_USER_WELCOME_PAGE page update $page");
-                  if (!_permsGranted && page == 2) {
-                    showToastWidget(
-                        Center(
-                          child: Container(
-                            width: 140,
-                            height: 60,
-                            decoration: BoxDecoration(
-                                color: kBackground,
-                                borderRadius:
-                                    BorderRadius.circular(kRRectArc),
-                                border:
-                                    Border.all(color: kForeground)),
-                            child: const Center(
-                              child: Text("Please grant permissions",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: kForeground,
-                                      fontSize: 16)),
+                const SizedBox(height: 18),
+                ScrollerWidget(
+                  currentPageIndex: _curr,
+                  tabController: _tabController,
+                  onUpdateCurrentPageIndex:
+                      (/* page == next page */ int page) {
+                    Debug().info(
+                        "NEW_USER_WELCOME_PAGE page update $page");
+                    if (!_permsGranted && page == 2) {
+                      showToastWidget(
+                          Center(
+                            child: Container(
+                              width: 180,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color: kBackground,
+                                  borderRadius: BorderRadius.circular(
+                                      kRRectArc),
+                                  border:
+                                      Border.all(color: kForeground)),
+                              child: const Center(
+                                child: Text(
+                                    "Please grant permissions",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: kForeground,
+                                        fontSize: 16)),
+                              ),
                             ),
                           ),
-                        ),
-                        duration: const Duration(seconds: 3));
-                    Debug().warn(
-                        "NEW_USER_WELCOME_PAGE -> perms not granted, not moving!");
-                  } else {
-                    _pageController.animateToPage(
-                      page,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut,
-                    );
-                    Debug().info(
-                        "NEW_USER_WELCOME_PAGE -> perms granted, moving on");
-                  }
-                },
-              ),
-            ],
+                          duration: const Duration(seconds: 3));
+                      Debug().warn(
+                          "NEW_USER_WELCOME_PAGE -> perms not granted, not moving!");
+                    } else {
+                      _pageController.animateToPage(
+                        page,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                      Debug().info(
+                          "NEW_USER_WELCOME_PAGE -> perms granted, moving on");
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -403,22 +407,11 @@ class _SelectSexSegmentedButtonState
           margin: const EdgeInsets.symmetric(horizontal: 20),
           selectedTextStyle: const TextStyle(
               color: kBackground,
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.bold),
-          slideShadow: <BoxShadow>[
-            BoxShadow(
-                color: (_selected == 0
-                        ? const Color.fromARGB(255, 255, 59, 124)
-                        : const Color.fromARGB(255, 68, 171, 255))
-                    .withOpacity(0.76),
-                blurRadius: 8,
-                spreadRadius: 4,
-                offset: Offset(sRNG.nextDouble() * 2 - 1,
-                    sRNG.nextDouble() * 2 - 1))
-          ],
           unselectedTextStyle: const TextStyle(
               color: kForeground,
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.normal),
           colors: SegmentedButtonSlideColors(
               backgroundSelectedColor: _selected == 0
@@ -470,27 +463,7 @@ class PersonalizationPage_EnterBDay extends StatelessWidget {
                   fontSize: 13, fontWeight: FontWeight.normal)),
           const SizedBox(height: 20),
           // TODO: Use calendar_date_picker2 instead of the scrollwheeldatepicker
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: ScrollWheelDatePicker(
-                loopDays: false,
-                loopMonths: false,
-                initialDate:
-                    DateTime.now().subtract(const Duration(days: 1)),
-                // the naming scheme is so weird lol
-                lastDate: DateTime.now(),
-                startDate: DateTime(1900),
-                onSelectedItemChanged: (DateTime date) {},
-                theme: CurveDatePickerTheme(
-                  overlay: ScrollWheelDatePickerOverlay.highlight,
-                  monthFormat: MonthFormat.full,
-                  overlayColor: kTertiary.withOpacity(0.3),
-                  itemTextStyle: const TextStyle(
-                      color: kForeground,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
-                )),
-          ),
+          const EnterBDay_CalendarWidget(),
           const SizedBox(height: 14),
           SPECIFIC_GradientIntrinsicButtonBlob(
               text: "Next",
@@ -501,6 +474,80 @@ class PersonalizationPage_EnterBDay extends StatelessWidget {
                     curve: Curves.easeInOut,
                   ))
         ]);
+  }
+}
+
+class EnterBDay_CalendarWidget extends StatefulWidget {
+  const EnterBDay_CalendarWidget({
+    super.key,
+  });
+
+  @override
+  State<EnterBDay_CalendarWidget> createState() =>
+      _EnterBDay_CalendarWidgetState();
+}
+
+class _EnterBDay_CalendarWidgetState
+    extends State<EnterBDay_CalendarWidget> {
+  late DateTime selected;
+
+  @override
+  void initState() {
+    super.initState();
+    selected = DateTime.now().subtract(const Duration(days: 1));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: CalendarDatePicker2(
+          config: CalendarDatePicker2WithActionButtonsConfig(
+              hideMonthPickerDividers: true,
+              hideScrollViewTopHeaderDivider: true,
+              hideYearPickerDividers: true,
+              selectedDayHighlightColor: kForeground,
+              scrollViewTopHeaderTextStyle: const TextStyle(
+                color: kPoprockPrimary_1,
+                fontSize: 18,
+                fontFamily: kStylizedFontFamily,
+                fontWeight: FontWeight.bold,
+              ),
+              selectedYearTextStyle: const TextStyle(
+                  color: kBackground,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+              selectedMonthTextStyle: const TextStyle(
+                  color: kBackground,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+              selectedDayTextStyle: const TextStyle(
+                  color: kBackground,
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal),
+              yearTextStyle: const TextStyle(
+                  color: kForeground,
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal),
+              monthTextStyle: const TextStyle(
+                  color: kForeground,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+              daySplashColor: Colors.transparent,
+              dayTextStyle:
+                  const TextStyle(color: kForeground, fontSize: 16),
+              calendarType: CalendarDatePicker2Type.single,
+              currentDate: selected,
+              lastDate: DateTime.now(),
+              firstDate: DateTime(1900),
+              disableModePicker: false),
+          value: <DateTime>[selected],
+          onValueChanged: (List<DateTime> newDate) {
+            Debug()
+                .info("EnterBDay_CalendarWidget: Selected= $newDate");
+            setState(() => selected = newDate[0]);
+          },
+        ));
   }
 }
 
@@ -791,45 +838,42 @@ class ScrollerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          IconButton(
-            splashRadius: 16.0,
-            padding: EdgeInsets.zero,
-            color: kForeground,
-            onPressed: () {
-              if (currentPageIndex == 0) {
-                return;
-              }
-              onUpdateCurrentPageIndex(currentPageIndex - 1);
-            },
-            icon: const Icon(
-              Icons.arrow_left_rounded,
-              size: 38.0,
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        IconButton(
+          splashRadius: 16.0,
+          padding: EdgeInsets.zero,
+          color: kForeground,
+          onPressed: () {
+            if (currentPageIndex == 0) {
+              return;
+            }
+            onUpdateCurrentPageIndex(currentPageIndex - 1);
+          },
+          icon: const Icon(
+            Icons.arrow_left_rounded,
+            size: 38.0,
           ),
-          TabPageSelector(
-            controller: tabController,
-            color: Colors.grey[750],
-            selectedColor: kForeground,
-          ),
-          IconButton(
-            splashRadius: 16.0,
-            padding: EdgeInsets.zero,
-            onPressed: () {
-              if (currentPageIndex == 2) {
-                return;
-              }
-              onUpdateCurrentPageIndex(currentPageIndex + 1);
-            },
-            icon: const Icon(Icons.arrow_right_rounded,
-                size: 38.0, color: kForeground),
-          ),
-        ],
-      ),
+        ),
+        TabPageSelector(
+          controller: tabController,
+          color: Colors.grey[750],
+          selectedColor: kForeground,
+        ),
+        IconButton(
+          splashRadius: 16.0,
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            if (currentPageIndex == 2) {
+              return;
+            }
+            onUpdateCurrentPageIndex(currentPageIndex + 1);
+          },
+          icon: const Icon(Icons.arrow_right_rounded,
+              size: 38.0, color: kForeground),
+        ),
+      ],
     );
   }
 }

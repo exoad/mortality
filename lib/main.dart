@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:hive/hive.dart';
 import 'package:mortality_app/core/data_manager.dart';
@@ -13,6 +14,9 @@ import 'package:path_provider/path_provider.dart';
 void main() async {
   DateTime start = DateTime.now();
   WidgetsFlutterBinding.ensureInitialized();
+  // ********* DEBUG SECTION ********* //
+  debugRepaintRainbowEnabled = false;
+  // ********************************* //
   Debug().init();
   if (Platform.isAndroid) {
     Debug().warn("Detected ANDROID_PRESET");

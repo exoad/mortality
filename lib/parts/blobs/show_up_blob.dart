@@ -79,7 +79,7 @@ class SlideInBlob extends StatefulWidget {
 }
 
 class _SlideInBlobState extends State<SlideInBlob>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late AnimationController _animController;
   late Animation<Offset> _animOffset;
 

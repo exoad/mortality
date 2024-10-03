@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 const String kCanonicalAppIdentifier = "net.exoad:mortality_app";
 const String kLoggerName = "net.exoad";
-
 const double kRRectArc = 6;
 const Color kBackground = Colors.black;
 const Color kForeground = Colors.white;
