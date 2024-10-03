@@ -11,6 +11,7 @@ environment:
 dependencies:
   animations: ^2.0.11
   build_runner: ^2.4.13
+  calendar_date_picker2: ^1.1.7
   flutter:
     sdk: flutter
   flutter_displaymode: ^0.6.0
@@ -22,7 +23,7 @@ dependencies:
   path_provider: ^2.1.4
   permission_handler: ^11.3.1
   provider: ^6.1.2
-  scrollable_clean_calendar: ^1.5.0
+  scroll_wheel_date_picker: ^0.0.2+1
   segmented_button_slide: ^2.0.0
   visibility_detector: ^0.4.0+2
 

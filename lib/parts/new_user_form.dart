@@ -8,9 +8,7 @@ import 'package:mortality_app/parts/blobs/lazy_show_up_blob.dart';
 import 'package:mortality_app/parts/blobs/show_up_blob.dart';
 import 'package:mortality_app/shared.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:scrollable_clean_calendar/controllers/clean_calendar_controller.dart';
-import 'package:scrollable_clean_calendar/scrollable_clean_calendar.dart';
-import 'package:scrollable_clean_calendar/utils/enums.dart';
+import 'package:scroll_wheel_date_picker/scroll_wheel_date_picker.dart';
 import 'package:segmented_button_slide/segmented_button_slide.dart';
 
 class NewUserFormPart extends StatelessWidget {
@@ -65,7 +63,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
         PageView(
           physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics()),
-          allowImplicitScrolling: true,
+          allowImplicitScrolling: false,
           controller: _pageController,
           onPageChanged: (int page) {
             _tabController.index = page;
@@ -432,23 +430,12 @@ class _SelectSexSegmentedButtonState
 }
 
 class PersonalizationPage_EnterBDay extends StatelessWidget {
-  PersonalizationPage_EnterBDay({
+  const PersonalizationPage_EnterBDay({
     super.key,
     required PageController pageController,
   }) : _pageController = pageController;
 
   final PageController _pageController;
-  final CleanCalendarController _calendarController =
-      CleanCalendarController(
-          minDate: DateTime.now()
-              .subtract(const Duration(days: 365 * 140)),
-          maxDate: DateTime.now(),
-          onRangeSelected: (DateTime start, DateTime? end) {
-            /* ignore */
-          },
-          onAfterMaxDateTapped: (DateTime time) {/* ignore */},
-          weekdayStart: DateTime.monday,
-          rangeMode: false);
 
   @override
   Widget build(BuildContext context) {
@@ -481,20 +468,30 @@ class PersonalizationPage_EnterBDay extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 13, fontWeight: FontWeight.normal)),
-          const SizedBox(height: 40),
-          SizedBox(
-            width: MediaQuery.sizeOf(context).width * 0.86,
-            height: MediaQuery.sizeOf(context).width * 0.86,
-            child: Padding(
-              padding: const EdgeInsets.all(4),
-              child: ScrollableCleanCalendar(
-                  daySelectedBackgroundColor: kForeground,
-                  calendarController: _calendarController,
-                  layout: Layout.DEFAULT,
-                  calendarMainAxisSpacing: 4),
-            ),
+          const SizedBox(height: 20),
+          // TODO: Use calendar_date_picker2 instead of the scrollwheeldatepicker
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: ScrollWheelDatePicker(
+                loopDays: false,
+                loopMonths: false,
+                initialDate:
+                    DateTime.now().subtract(const Duration(days: 1)),
+                // the naming scheme is so weird lol
+                lastDate: DateTime.now(),
+                startDate: DateTime(1900),
+                onSelectedItemChanged: (DateTime date) {},
+                theme: CurveDatePickerTheme(
+                  overlay: ScrollWheelDatePickerOverlay.highlight,
+                  monthFormat: MonthFormat.full,
+                  overlayColor: kTertiary.withOpacity(0.3),
+                  itemTextStyle: const TextStyle(
+                      color: kForeground,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600),
+                )),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 14),
           SPECIFIC_GradientIntrinsicButtonBlob(
               text: "Next",
               icon: Icons.keyboard_arrow_right_rounded,
