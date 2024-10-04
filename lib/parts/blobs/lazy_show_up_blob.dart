@@ -52,7 +52,11 @@ class _LazySlideInBlobState extends State<LazySlideInBlob>
       onVisibilityChanged: (VisibilityInfo info) {
         if (info.visibleFraction > 0) {
           Future<void>.delayed(Duration(milliseconds: widget.delay),
-              () => _animController.forward());
+              () {
+            if (mounted) {
+              _animController.forward();
+            }
+          });
         }
       },
       child: FadeTransition(

@@ -153,10 +153,26 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                                               builder: (BuildContext
                                                       context) =>
                                                   PersonalizationPage(
-                                                      onExit: () =>
-                                                          Navigator.of(
-                                                                  context)
-                                                              .pop())));
+                                                      onExit: () {
+                                                    _pageController
+                                                        .animateToPage(
+                                                      2,
+                                                      duration:
+                                                          const Duration(
+                                                              milliseconds:
+                                                                  500),
+                                                      curve: Curves
+                                                          .easeInOut,
+                                                    );
+                                                    setState(() {
+                                                      _permsGranted =
+                                                          true;
+                                                      _curr = 2;
+                                                    });
+                                                    Navigator.of(
+                                                            context)
+                                                        .pop();
+                                                  })));
                                     },
                                   )),
                             const SizedBox(height: 100),
@@ -313,7 +329,49 @@ class _PersonalizationPageState extends State<PersonalizationPage>
             PersonalizationPage_SelectSex(
                 pageController: _pageController),
             PersonalizationPage_EnterBDay(
-                pageController: _pageController)
+                pageController: _pageController),
+            Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const GradientBlob(
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        stops: <double>[
+                          0.2,
+                          0.8
+                        ],
+                        colors: <Color>[
+                          kPoprockPrimary_2,
+                          kPoprockPrimary_1
+                        ]),
+                    child: Icon(Icons.done_all_rounded, size: 80),
+                  ),
+                  const SizedBox(height: 22),
+                  const Text.rich(
+                    TextSpan(
+                        text: "Thank you.\n",
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
+                        children: <InlineSpan>[
+                          TextSpan(
+                              text:
+                                  "You are almost at the countdown...",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  fontStyle: FontStyle.italic))
+                        ]),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 40),
+                  SPECIFIC_GradientIntrinsicButtonBlob(
+                      text: "Next",
+                      icon: Icons.keyboard_arrow_right_rounded,
+                      onPressed: widget.onExit)
+                ])
           ]),
     );
   }

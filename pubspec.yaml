@@ -12,6 +12,7 @@ dependencies:
   animations: ^2.0.11
   build_runner: ^2.4.13
   calendar_date_picker2: ^1.1.7
+  community_material_icon: ^5.9.55
   flutter:
     sdk: flutter
   flutter_displaymode: ^0.6.0

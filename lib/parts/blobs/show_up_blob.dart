@@ -42,8 +42,8 @@ class _PopInBlobState extends State<PopInBlob>
 
   @override
   void dispose() {
-    super.dispose();
     _animController.dispose();
+    super.dispose();
   }
 
   @override
@@ -99,8 +99,8 @@ class _SlideInBlobState extends State<SlideInBlob>
 
   @override
   void dispose() {
-    super.dispose();
     _animController.dispose();
+    super.dispose();
   }
 
   @override

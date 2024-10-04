@@ -31,8 +31,8 @@ class _FadeInBlobState extends State<FadeInBlob>
 
   @override
   void dispose() {
-    super.dispose();
     _animController.dispose();
+    super.dispose();
   }
 
   @override
