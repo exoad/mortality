@@ -1,3 +1,4 @@
+import "package:calendar_date_picker2/calendar_date_picker2.dart";
 import "package:flutter/material.dart";
 import "package:mortality_app/core/user_profile_data.dart";
 import "package:mortality_app/debug.dart";
@@ -8,7 +9,6 @@ import "package:mortality_app/parts/blobs/lazy_show_up_blob.dart";
 import "package:mortality_app/parts/blobs/show_up_blob.dart";
 import "package:mortality_app/shared.dart";
 import "package:oktoast/oktoast.dart";
-import "package:calendar_date_picker2/calendar_date_picker2.dart";
 import "package:segmented_button_slide/segmented_button_slide.dart";
 
 class NewUserFormPart extends StatelessWidget {
@@ -246,6 +246,46 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
   }
 }
 
+class _AppDisclaimerPage_FeatureField extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final String description;
+
+  const _AppDisclaimerPage_FeatureField(
+      {required this.title, required this.icon, required this.description});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                GradientBlob(
+                    gradient: const LinearGradient(
+                        colors: <Color>[kPoprockPrimary_1, kPoprockPrimary_2],
+                        stops: <double>[0.3, 0.7]),
+                    child: Icon(icon, size: 36)),
+                const SizedBox(width: 12),
+                Text(title,
+                    style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: kPoprockPrimary_2))
+              ]),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Text(description,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16)),
+          )
+        ]);
+  }
+}
+
 class AppDisclaimerPage extends StatelessWidget {
   const AppDisclaimerPage({super.key});
 
@@ -262,26 +302,61 @@ class AppDisclaimerPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     const SizedBox(height: 54),
-                    const GradientTextBlob("The clock is ticking...",
+                    const Text("The clock is ticking...",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 48,
+                          shadows: <BoxShadow>[
+                            BoxShadow(
+                                blurRadius: 16,
+                                spreadRadius: 16,
+                                offset: Offset(-20, -20),
+                                color: kPoprockPrimary_1),
+                            BoxShadow(
+                                blurRadius: 16,
+                                spreadRadius: 16,
+                                offset: Offset(20, 20),
+                                color: kPoprockPrimary_2),
+                            BoxShadow(
+                                blurRadius: 24,
+                                spreadRadius: 16,
+                                offset: Offset(-20, 20),
+                                color: kPoprockPrimary_1),
+                            BoxShadow(
+                                blurRadius: 24,
+                                spreadRadius: 16,
+                                offset: Offset(20, -20),
+                                color: kPoprockPrimary_2)
+                          ],
                           fontWeight: FontWeight.bold,
-                        ),
-                        gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: <Color>[
-                              kPoprockPrimary_1,
-                              kPoprockPrimary_2
-                            ],
-                            stops: <double>[
-                              0.3,
-                              0.7
-                            ])),
+                        )),
+                    const SizedBox(height: 23),
+                    const Divider(),
+                    const SizedBox(height: 23),
+                    const Text("Onboarding",
+                        style: TextStyle(
+                            fontSize: 32, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 23),
+                    const _AppDisclaimerPage_FeatureField(
+                        title: "Interactive Time Visualizer",
+                        icon: Icons.interests_rounded,
+                        description:
+                            "Explore your mortality through an intuitive interface that lets you zoom in on years, months, days, and even hours—right at your fingertips."),
                     const SizedBox(height: 30),
-                    const Column(children: <Widget>[]),
-                    const SizedBox(height: 20),
+                    const _AppDisclaimerPage_FeatureField(
+                        title: "Personalized Reminders",
+                        icon: Icons.notification_important_rounded,
+                        description:
+                            "Receive timely reminders that highlight what you’ve experienced and what remains, helping you focus on what truly matters—or perhaps what you’d prefer to delay."),
+                    const SizedBox(height: 30),
+                    const _AppDisclaimerPage_FeatureField(
+                        title: "Daily & Weekly Reflections",
+                        icon: Icons.note_alt_rounded,
+                        description:
+                            "Document your daily activities and emotions, and visualize your experiences over time to gain insight into your journey."),
+                    const SizedBox(height: 22),
+                    const Divider(),
+                    const SizedBox(height: 22),
                     const ExpansionTile(
                         initiallyExpanded: true,
                         controlAffinity: ListTileControlAffinity.leading,
@@ -292,8 +367,7 @@ class AppDisclaimerPage extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold))
                         ]),
-                        subtitle: Text(
-                            "Click to expand - Please review carefully",
+                        subtitle: Text("Please review carefully",
                             style: TextStyle(
                                 fontSize: 14,
                                 color: kTertiary,
@@ -402,6 +476,58 @@ class AppDisclaimerPage extends StatelessWidget {
                                 style: TextStyle(fontSize: 14)),
                           )
                         ]),
+                    const SizedBox(height: 14),
+                    const ExpansionTile(
+                        title: Row(children: <Widget>[
+                          Icon(Icons.gavel_rounded, color: kForeground),
+                          SizedBox(width: 10),
+                          Text("Copyright & License",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold))
+                        ]),
+                        subtitle: Text("Please review carefully"),
+                        controlAffinity: ListTileControlAffinity.leading,
+                        initiallyExpanded: false,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 14),
+                            child: Text.rich(
+                                TextSpan(children: <TextSpan>[
+                                  TextSpan(
+                                    text:
+                                        "Copyright (c) 2024, Jiaming (Jack) Meng. All rights reserved.\n\n",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\n",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "1. Redistributions of source code must retain the above copyright notice, this list of conditions, and the following disclaimer.\n",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions, and the following disclaimer in the documentation and/or other materials provided with the distribution.\n",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "3. All advertising materials mentioning features or use of this software must display the following acknowledgment: This product includes software developed by Jiaming (Jack) Meng.\n",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "4. Neither the name of Jiaming (Jack) Meng nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.\n\n",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "THIS SOFTWARE IS PROVIDED BY JIAMING (JACK) MENG \"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL JIAMING (JACK) MENG BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.",
+                                  ),
+                                ]),
+                                style: TextStyle(fontSize: 14)),
+                          )
+                        ]),
                     const SizedBox(height: 34),
                     TextButtonBlob("Continue",
                         isDense: false,
@@ -414,7 +540,7 @@ class AppDisclaimerPage extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 38, vertical: 10),
                       child: Text(
-                          "By clicking \"Continue,\" you acknowledge that you have read and understood the disclaimers regarding the app's purpose and use.",
+                          "By clicking \"Continue,\" you acknowledge that you have read and understood the disclaimers and license agreement regarding the app's purpose and use.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 12, fontWeight: FontWeight.w300)),
