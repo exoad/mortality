@@ -6,7 +6,7 @@ Mortality
 
 <p align="center">
   <em>
-    "Get a gentle reminder of how much time you probably have left, so you can finally prioritize... or procrastinate wisely"
+    <code>"Get a gentle reminder of how much time you probably have left, so you can finally prioritize... or procrastinate wisely"</code>
   </em>
   <br/>
 </p>
