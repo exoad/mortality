@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:mortality_app/core/user_profile_data.dart';
-import 'package:mortality_app/debug.dart';
-import 'package:mortality_app/parts/blobs/fade_blob.dart';
-import 'package:mortality_app/parts/blobs/gesture_action_blob.dart';
-import 'package:mortality_app/parts/blobs/gradient_blob.dart';
-import 'package:mortality_app/parts/blobs/lazy_show_up_blob.dart';
-import 'package:mortality_app/parts/blobs/show_up_blob.dart';
-import 'package:mortality_app/shared.dart';
-import 'package:oktoast/oktoast.dart';
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:segmented_button_slide/segmented_button_slide.dart';
+import "package:flutter/material.dart";
+import "package:mortality_app/core/user_profile_data.dart";
+import "package:mortality_app/debug.dart";
+import "package:mortality_app/parts/blobs/fade_blob.dart";
+import "package:mortality_app/parts/blobs/gesture_action_blob.dart";
+import "package:mortality_app/parts/blobs/gradient_blob.dart";
+import "package:mortality_app/parts/blobs/lazy_show_up_blob.dart";
+import "package:mortality_app/parts/blobs/show_up_blob.dart";
+import "package:mortality_app/shared.dart";
+import "package:oktoast/oktoast.dart";
+import "package:calendar_date_picker2/calendar_date_picker2.dart";
+import "package:segmented_button_slide/segmented_button_slide.dart";
 
 class NewUserFormPart extends StatelessWidget {
   const NewUserFormPart({super.key});
@@ -25,8 +25,7 @@ class ScrollingUserGuide extends StatefulWidget {
   const ScrollingUserGuide({super.key});
 
   @override
-  State<ScrollingUserGuide> createState() =>
-      _ScrollingUserGuideState();
+  State<ScrollingUserGuide> createState() => _ScrollingUserGuideState();
 }
 
 class _ScrollingUserGuideState extends State<ScrollingUserGuide>
@@ -70,8 +69,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
           },
           children: <Widget>[
             NewUser_WelcomePage(
-                curr: _curr,
-                backdropWidthHeight: backdropWidthHeight),
+                curr: _curr, backdropWidthHeight: backdropWidthHeight),
             Center(
               child: Padding(
                 padding: const EdgeInsets.only(top: 80, bottom: 30),
@@ -81,15 +79,13 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                       const Text("Permissions",
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontSize: 56,
-                              fontWeight: FontWeight.normal)),
+                              fontSize: 56, fontWeight: FontWeight.normal)),
                       const SizedBox(height: 26),
                       const Divider(color: kTertiary),
                       Expanded(
                         child: SingleChildScrollView(
-                          physics:
-                              const AlwaysScrollableScrollPhysics(
-                                  parent: BouncingScrollPhysics()),
+                          physics: const AlwaysScrollableScrollPhysics(
+                              parent: BouncingScrollPhysics()),
                           child: Column(children: <Widget>[
                             const SizedBox(height: 28),
                             const NewUserPermissionsField(
@@ -105,8 +101,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                             const SizedBox(height: 20),
                             const NewUserPermissionsField(
                                 delay: 100,
-                                icon: Icons
-                                    .notifications_active_rounded,
+                                icon: Icons.notifications_active_rounded,
                                 stops: <double>[0.2, 0.8],
                                 title: "Notifications",
                                 description:
@@ -147,31 +142,23 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                                     onPressed: () async {
                                       Debug().info(
                                           "Launch permission grant and personalize page");
-                                      await Navigator.of(context)
-                                          .push(MaterialPageRoute<
-                                                  Widget>(
-                                              builder: (BuildContext
-                                                      context) =>
+                                      await Navigator.of(context).push(
+                                          MaterialPageRoute<Widget>(
+                                              builder: (BuildContext context) =>
                                                   PersonalizationPage(
                                                       onExit: () {
                                                     _pageController
                                                         .animateToPage(
                                                       2,
-                                                      duration:
-                                                          const Duration(
-                                                              milliseconds:
-                                                                  500),
-                                                      curve: Curves
-                                                          .easeInOut,
+                                                      duration: const Duration(
+                                                          milliseconds: 500),
+                                                      curve: Curves.easeInOut,
                                                     );
                                                     setState(() {
-                                                      _permsGranted =
-                                                          true;
+                                                      _permsGranted = true;
                                                       _curr = 2;
                                                     });
-                                                    Navigator.of(
-                                                            context)
-                                                        .pop();
+                                                    Navigator.of(context).pop();
                                                   })));
                                     },
                                   )),
@@ -182,9 +169,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                     ]),
               ),
             ),
-            const Center(
-              child: Text('Third Page'),
-            ),
+            const AppDisclaimerPage()
           ],
         ),
         Align(
@@ -208,8 +193,7 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                         SizedBox(width: 8),
                         Text("Tap the arrows to navigate",
                             style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal)),
+                                fontSize: 14, fontWeight: FontWeight.normal)),
                       ],
                     ),
                   ),
@@ -218,10 +202,8 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                 ScrollerWidget(
                   currentPageIndex: _curr,
                   tabController: _tabController,
-                  onUpdateCurrentPageIndex:
-                      (/* page == next page */ int page) {
-                    Debug().info(
-                        "NEW_USER_WELCOME_PAGE page update $page");
+                  onUpdateCurrentPageIndex: (/* page == next page */ int page) {
+                    Debug().info("NEW_USER_WELCOME_PAGE page update $page");
                     if (!_permsGranted && page == 2) {
                       showToastWidget(
                           Center(
@@ -230,17 +212,14 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
                               height: 50,
                               decoration: BoxDecoration(
                                   color: kBackground,
-                                  borderRadius: BorderRadius.circular(
-                                      kRRectArc),
-                                  border:
-                                      Border.all(color: kForeground)),
+                                  borderRadius:
+                                      BorderRadius.circular(kRRectArc),
+                                  border: Border.all(color: kForeground)),
                               child: const Center(
-                                child: Text(
-                                    "Please grant permissions",
+                                child: Text("Please grant permissions",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        color: kForeground,
-                                        fontSize: 16)),
+                                        color: kForeground, fontSize: 16)),
                               ),
                             ),
                           ),
@@ -267,14 +246,194 @@ class _ScrollingUserGuideState extends State<ScrollingUserGuide>
   }
 }
 
+class AppDisclaimerPage extends StatelessWidget {
+  const AppDisclaimerPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics()),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const SizedBox(height: 54),
+                    const GradientTextBlob("The clock is ticking...",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 48,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: <Color>[
+                              kPoprockPrimary_1,
+                              kPoprockPrimary_2
+                            ],
+                            stops: <double>[
+                              0.3,
+                              0.7
+                            ])),
+                    const SizedBox(height: 30),
+                    const Column(children: <Widget>[]),
+                    const SizedBox(height: 20),
+                    const ExpansionTile(
+                        initiallyExpanded: true,
+                        controlAffinity: ListTileControlAffinity.leading,
+                        title: Row(children: <Widget>[
+                          Icon(Icons.info_outline_rounded, color: kForeground),
+                          SizedBox(width: 10),
+                          Text("Disclaimers",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold))
+                        ]),
+                        subtitle: Text(
+                            "Click to expand - Please review carefully",
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: kTertiary,
+                                fontWeight: FontWeight.w300)),
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 14),
+                            child: Text.rich(
+                                TextSpan(children: <InlineSpan>[
+                                  TextSpan(
+                                      text: "This app is intended solely for ",
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic)),
+                                  TextSpan(
+                                    text:
+                                        "entertainment and visualization purposes. ",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "The life expectancy estimates, projections, and other content presented are based on average life expectancy data from reputable research and scientific sources. ",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "These projections are speculative and should not be considered accurate, reliable, or applicable to individual circumstances.\n\n",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "1) Not Medical or Professional Advice\n\n",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "Life expectancy is affected by numerous factors, many of which are unpredictable and not fully accounted for by this app. ",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "The information provided does not constitute medical, health, or professional advice. ",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "For any health-related concerns or accurate life assessments, always consult a licensed medical professional or healthcare provider.\n\n",
+                                  ),
+                                  TextSpan(
+                                    text: "2) User Responsibility\n\n",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "By using this app, you acknowledge and agree that all decisions and actions based on the app’s content are made at your own discretion and risk. ",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "The creators and developers of this app do not guarantee the accuracy, completeness, or reliability of any information provided, ",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "and expressly disclaim any liability for decisions or actions taken by users based on the app’s output.\n\n",
+                                  ),
+                                  TextSpan(
+                                    text: "3) No Personal Data Collection\n\n",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "This app does not collect, store, or share any personal health or medical data. ",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "Any information you provide is used solely for the app’s intended functionality and remains anonymous. ",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "We are committed to protecting your privacy and do not share data with third parties.\n\n",
+                                  ),
+                                  TextSpan(
+                                    text: "4) Limitation of Liability\n\n",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "By using this app, you agree that the developers and creators are ",
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "not liable for any direct, indirect, incidental, or consequential damages ",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        "resulting from the use or misuse of the app. This includes, but is not limited to, emotional distress, reliance on app-generated projections, or any other adverse outcomes.",
+                                  ),
+                                ]),
+                                style: TextStyle(fontSize: 14)),
+                          )
+                        ]),
+                    const SizedBox(height: 34),
+                    TextButtonBlob("Continue",
+                        isDense: false,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w900, fontSize: 22),
+                        onPressed: () /* TODO */ {}),
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 38, vertical: 10),
+                      child: Text(
+                          "By clicking \"Continue,\" you acknowledge that you have read and understood the disclaimers regarding the app's purpose and use.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w300)),
+                    ),
+                    const SizedBox(height: 154) // DO NOT REMOVE, THIS IS BUMPER
+                  ]),
+            )),
+      ),
+    );
+  }
+}
+
 class PersonalizationPage extends StatefulWidget {
   final void Function() onExit;
 
   const PersonalizationPage({super.key, required this.onExit});
 
   @override
-  State<PersonalizationPage> createState() =>
-      _PersonalizationPageState();
+  State<PersonalizationPage> createState() => _PersonalizationPageState();
 }
 
 class _PersonalizationPageState extends State<PersonalizationPage>
@@ -322,58 +481,59 @@ class _PersonalizationPageState extends State<PersonalizationPage>
           },
           scrollDirection: Axis.horizontal,
           children: <Widget>[
-            PersonalizationPage_StartingPage(
-                pageController: _pageController),
-            PersonalizationPage_EnterName(
-                pageController: _pageController),
-            PersonalizationPage_SelectSex(
-                pageController: _pageController),
-            PersonalizationPage_EnterBDay(
-                pageController: _pageController),
-            Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  const GradientBlob(
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        stops: <double>[
-                          0.2,
-                          0.8
-                        ],
-                        colors: <Color>[
-                          kPoprockPrimary_2,
-                          kPoprockPrimary_1
-                        ]),
-                    child: Icon(Icons.done_all_rounded, size: 80),
-                  ),
-                  const SizedBox(height: 22),
-                  const Text.rich(
-                    TextSpan(
-                        text: "Thank you.\n",
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold),
-                        children: <InlineSpan>[
-                          TextSpan(
-                              text:
-                                  "You are almost at the countdown...",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  fontStyle: FontStyle.italic))
-                        ]),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 40),
-                  SPECIFIC_GradientIntrinsicButtonBlob(
-                      text: "Next",
-                      icon: Icons.keyboard_arrow_right_rounded,
-                      onPressed: widget.onExit)
-                ])
+            PersonalizationPage_StartingPage(pageController: _pageController),
+            PersonalizationPage_EnterName(pageController: _pageController),
+            PersonalizationPage_SelectSex(pageController: _pageController),
+            PersonalizationPage_EnterBDay(pageController: _pageController),
+            PersonalizationPage_EndingPage(widget: widget)
           ]),
     );
+  }
+}
+
+class PersonalizationPage_EndingPage extends StatelessWidget {
+  const PersonalizationPage_EndingPage({
+    super.key,
+    required this.widget,
+  });
+
+  final PersonalizationPage widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          const GradientBlob(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: <double>[0.2, 0.8],
+                colors: <Color>[kPoprockPrimary_2, kPoprockPrimary_1]),
+            child: Icon(Icons.done_all_rounded, size: 80),
+          ),
+          const SizedBox(height: 22),
+          const Text.rich(
+            TextSpan(
+                text: "Thank you.\n",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                children: <InlineSpan>[
+                  TextSpan(
+                      text: "You are almost at the countdown...",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                          fontStyle: FontStyle.italic))
+                ]),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 40),
+          SPECIFIC_GradientIntrinsicButtonBlob(
+              text: "Next",
+              icon: Icons.keyboard_arrow_right_rounded,
+              onPressed: widget.onExit)
+        ]);
   }
 }
 
@@ -394,14 +554,8 @@ class PersonalizationPage_SelectSex extends StatelessWidget {
             gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.bottomRight,
-                stops: <double>[
-                  0.4,
-                  0.6
-                ],
-                colors: <Color>[
-                  kPoprockPrimary_2,
-                  kPoprockPrimary_1
-                ]),
+                stops: <double>[0.4, 0.6],
+                colors: <Color>[kPoprockPrimary_2, kPoprockPrimary_1]),
             child: Icon(Icons.wc_rounded, size: 80),
           ),
           const SizedBox(height: 14),
@@ -415,8 +569,7 @@ class PersonalizationPage_SelectSex extends StatelessWidget {
           const Text(
               "We will use this to provide you with\nmore accurate data.",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 13, fontWeight: FontWeight.normal)),
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.normal)),
           const SizedBox(height: 40),
           const SelectSexSegmentedButton(),
           const SizedBox(height: 54),
@@ -440,8 +593,7 @@ class SelectSexSegmentedButton extends StatefulWidget {
       _SelectSexSegmentedButtonState();
 }
 
-class _SelectSexSegmentedButtonState
-    extends State<SelectSexSegmentedButton> {
+class _SelectSexSegmentedButtonState extends State<SelectSexSegmentedButton> {
   int _selected = 0;
 
   @override
@@ -458,18 +610,13 @@ class _SelectSexSegmentedButtonState
           entries: const <SegmentedButtonSlideEntry>[
             SegmentedButtonSlideEntry(
                 icon: Icons.female_rounded, label: "Female"),
-            SegmentedButtonSlideEntry(
-                icon: Icons.male_rounded, label: "Male")
+            SegmentedButtonSlideEntry(icon: Icons.male_rounded, label: "Male")
           ],
           margin: const EdgeInsets.symmetric(horizontal: 20),
           selectedTextStyle: const TextStyle(
-              color: kBackground,
-              fontSize: 18,
-              fontWeight: FontWeight.bold),
+              color: kBackground, fontSize: 18, fontWeight: FontWeight.bold),
           unselectedTextStyle: const TextStyle(
-              color: kForeground,
-              fontSize: 18,
-              fontWeight: FontWeight.normal),
+              color: kForeground, fontSize: 18, fontWeight: FontWeight.normal),
           colors: SegmentedButtonSlideColors(
               backgroundSelectedColor: _selected == 0
                   ? const Color.fromARGB(255, 255, 59, 124)
@@ -496,14 +643,8 @@ class PersonalizationPage_EnterBDay extends StatelessWidget {
             gradient: LinearGradient(
                 begin: Alignment.bottomLeft,
                 end: Alignment.topRight,
-                stops: <double>[
-                  0.3,
-                  0.7
-                ],
-                colors: <Color>[
-                  kPoprockPrimary_2,
-                  kPoprockPrimary_1
-                ]),
+                stops: <double>[0.3, 0.7],
+                colors: <Color>[kPoprockPrimary_2, kPoprockPrimary_1]),
             child: Icon(Icons.cake_rounded, size: 80),
           ),
           const SizedBox(height: 14),
@@ -516,8 +657,7 @@ class PersonalizationPage_EnterBDay extends StatelessWidget {
           const SizedBox(height: 8),
           const Text("We will use this to base our calculations on.",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 13, fontWeight: FontWeight.normal)),
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.normal)),
           const SizedBox(height: 20),
           const EnterBDay_CalendarWidget(),
           const SizedBox(height: 14),
@@ -543,8 +683,7 @@ class EnterBDay_CalendarWidget extends StatefulWidget {
       _EnterBDay_CalendarWidgetState();
 }
 
-class _EnterBDay_CalendarWidgetState
-    extends State<EnterBDay_CalendarWidget> {
+class _EnterBDay_CalendarWidgetState extends State<EnterBDay_CalendarWidget> {
   late DateTime selected;
 
   @override
@@ -590,8 +729,7 @@ class _EnterBDay_CalendarWidgetState
                   fontSize: 16,
                   fontWeight: FontWeight.bold),
               daySplashColor: Colors.transparent,
-              dayTextStyle:
-                  const TextStyle(color: kForeground, fontSize: 16),
+              dayTextStyle: const TextStyle(color: kForeground, fontSize: 16),
               calendarType: CalendarDatePicker2Type.single,
               currentDate: selected,
               lastDate: DateTime.now(),
@@ -599,8 +737,7 @@ class _EnterBDay_CalendarWidgetState
               disableModePicker: false),
           value: <DateTime>[selected],
           onValueChanged: (List<DateTime> newDate) {
-            Debug()
-                .info("EnterBDay_CalendarWidget: Selected= $newDate");
+            Debug().info("EnterBDay_CalendarWidget: Selected= $newDate");
             setState(() => selected = newDate[0]);
           },
         ));
@@ -624,14 +761,8 @@ class PersonalizationPage_EnterName extends StatelessWidget {
             gradient: LinearGradient(
                 begin: Alignment.bottomLeft,
                 end: Alignment.centerRight,
-                stops: <double>[
-                  0.4,
-                  0.6
-                ],
-                colors: <Color>[
-                  kPoprockPrimary_2,
-                  kPoprockPrimary_1
-                ]),
+                stops: <double>[0.4, 0.6],
+                colors: <Color>[kPoprockPrimary_2, kPoprockPrimary_1]),
             child: Icon(Icons.person_pin_rounded, size: 80),
           ),
           const SizedBox(height: 14),
@@ -644,8 +775,7 @@ class PersonalizationPage_EnterName extends StatelessWidget {
           const SizedBox(height: 8),
           const Text("We will address you using this name",
               textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 13, fontWeight: FontWeight.normal)),
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.normal)),
           const SizedBox(height: 40),
           SizedBox(
             width: MediaQuery.sizeOf(context).width * 0.76,
@@ -693,16 +823,9 @@ class PersonalizationPage_StartingPage extends StatelessWidget {
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                stops: <double>[
-                  0.3,
-                  0.7
-                ],
-                colors: <Color>[
-                  kPoprockPrimary_2,
-                  kPoprockPrimary_1
-                ]),
-            child:
-                Icon(Icons.supervised_user_circle_rounded, size: 78),
+                stops: <double>[0.3, 0.7],
+                colors: <Color>[kPoprockPrimary_2, kPoprockPrimary_1]),
+            child: Icon(Icons.supervised_user_circle_rounded, size: 78),
           ),
           const SizedBox(height: 14),
           const Text("Lets get to know you",
@@ -717,8 +840,7 @@ class PersonalizationPage_StartingPage extends StatelessWidget {
             child: Text(
                 "By providing accurate information, we can provide you with the most accurate data and insights.",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 14, fontWeight: FontWeight.normal)),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
           ),
           const SizedBox(height: 54),
           SPECIFIC_GradientIntrinsicButtonBlob(
@@ -750,56 +872,46 @@ class NewUser_WelcomePage extends StatelessWidget {
       opacity: _curr == 0 ? 1 : 0,
       duration: const Duration(milliseconds: 300),
       child: Stack(alignment: Alignment.center, children: <Widget>[
-        Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const FadeInBlob(
-                delay: 0,
-                duration: Duration(milliseconds: 600),
-                child: Text("Welcome to",
+        Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          const FadeInBlob(
+            delay: 0,
+            duration: Duration(milliseconds: 600),
+            child: Text("Welcome to",
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.normal)),
+          ),
+          const SizedBox(height: 60),
+          const SlideInBlob(
+              delay: 480,
+              child: GradientTextBlob(
+                "Mortality",
+                style: TextStyle(
+                    fontFamily: kStylizedFontFamily,
+                    fontSize: 68,
+                    fontWeight: FontWeight.w800),
+                gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.bottomRight,
+                    stops: <double>[0.35, 0.65],
+                    colors: <Color>[kPoprockPrimary_2, kPoprockPrimary_1]),
+              )),
+          const SizedBox(height: 60),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.sizeOf(context).width * 0.1),
+            child: const SlideInBlob(
+                curve: Curves.easeInOut,
+                duration: Duration(milliseconds: 800),
+                delay: 800,
+                startOffset: Offset(0, 0.9),
+                child: Text(
+                    "Get a gentle reminder of how much time you probably have left, so you can finally prioritize... or procrastinate wisely",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 28, fontWeight: FontWeight.normal)),
-              ),
-              const SizedBox(height: 60),
-              const SlideInBlob(
-                  delay: 480,
-                  child: GradientTextBlob(
-                    "Mortality",
-                    style: TextStyle(
-                        fontFamily: kStylizedFontFamily,
-                        fontSize: 68,
-                        fontWeight: FontWeight.w800),
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.bottomRight,
-                        stops: <double>[
-                          0.35,
-                          0.65
-                        ],
-                        colors: <Color>[
-                          kPoprockPrimary_2,
-                          kPoprockPrimary_1
-                        ]),
-                  )),
-              const SizedBox(height: 60),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal:
-                        MediaQuery.sizeOf(context).width * 0.1),
-                child: const SlideInBlob(
-                    curve: Curves.easeInOut,
-                    duration: Duration(milliseconds: 800),
-                    delay: 800,
-                    startOffset: Offset(0, 0.9),
-                    child: Text(
-                        "Get a gentle reminder of how much time you probably have left, so you can finally prioritize... or procrastinate wisely",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.normal))),
-              ),
-            ]),
+                        fontSize: 15,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.normal))),
+          ),
+        ]),
         Opacity(
           opacity: 0.1,
           child: Image(
@@ -821,6 +933,7 @@ class NewUserPermissionsField extends StatelessWidget {
   final Alignment gradientEnd;
   final bool invertColorPos;
   final int delay;
+
   const NewUserPermissionsField(
       {super.key,
       required this.icon,
@@ -845,14 +958,8 @@ class NewUserPermissionsField extends StatelessWidget {
                 end: gradientEnd,
                 stops: stops,
                 colors: invertColorPos
-                    ? const <Color>[
-                        kPoprockPrimary_2,
-                        kPoprockPrimary_1
-                      ]
-                    : const <Color>[
-                        kPoprockPrimary_1,
-                        kPoprockPrimary_2
-                      ]),
+                    ? const <Color>[kPoprockPrimary_2, kPoprockPrimary_1]
+                    : const <Color>[kPoprockPrimary_1, kPoprockPrimary_2]),
             child: Icon(icon, size: 44, color: kForeground),
           ),
           const SizedBox(height: 6),
@@ -869,8 +976,7 @@ class NewUserPermissionsField extends StatelessWidget {
                   TextSpan(
                       text: description,
                       style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal)),
+                          fontSize: 14, fontWeight: FontWeight.normal)),
                 ]),
                 textAlign: TextAlign.center,
               ))

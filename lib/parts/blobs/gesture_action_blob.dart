@@ -18,20 +18,14 @@ class SPECIFIC_GradientIntrinsicButtonBlob extends StatelessWidget {
       this.begin = Alignment.topLeft,
       this.end = Alignment.bottomRight,
       this.stops = const <double>[0.25, 0.75],
-      this.colors = const <Color>[
-        kPoprockPrimary_2,
-        kPoprockPrimary_1
-      ],
+      this.colors = const <Color>[kPoprockPrimary_2, kPoprockPrimary_1],
       required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return GradientBlob(
-      gradient: LinearGradient(
-          begin: begin,
-          end: end,
-          stops: stops,
-          colors: colors),
+      gradient:
+          LinearGradient(begin: begin, end: end, stops: stops, colors: colors),
       child: IconButtonBlob(
           icon: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -46,7 +40,6 @@ class SPECIFIC_GradientIntrinsicButtonBlob extends StatelessWidget {
     );
   }
 }
-
 
 class IconButtonBlob extends StatelessWidget {
   final Widget icon;
@@ -68,9 +61,8 @@ class IconButtonBlob extends StatelessWidget {
           backgroundColor: Colors.transparent,
           disabledBackgroundColor: Colors.transparent,
           disabledForegroundColor: kTertiary,
-          visualDensity: isDense
-              ? VisualDensity.compact
-              : VisualDensity.standard,
+          visualDensity:
+              isDense ? VisualDensity.compact : VisualDensity.standard,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(kRRectArc))),
@@ -86,11 +78,13 @@ class TextButtonBlob extends StatelessWidget {
   final void Function() onPressed;
   final Color bgColor;
   final bool isDense;
+  final EdgeInsetsGeometry? padding;
 
   const TextButtonBlob(this.text,
       {super.key,
       this.style = const TextStyle(color: kBackground),
       this.isDense = true,
+      this.padding,
       required this.onPressed})
       : bgColor = kForeground;
 
@@ -98,12 +92,14 @@ class TextButtonBlob extends StatelessWidget {
       {super.key,
       this.style = const TextStyle(color: kBackground),
       this.isDense = false,
+      this.padding,
       required this.onPressed})
       : bgColor = kPoprockPrimary_1;
 
   const TextButtonBlob.secondary(this.text,
       {super.key,
       this.isDense = false,
+      this.padding,
       this.style = const TextStyle(color: kBackground),
       required this.onPressed})
       : bgColor = kPoprockPrimary_2;
@@ -117,9 +113,9 @@ class TextButtonBlob extends StatelessWidget {
           backgroundColor: bgColor,
           disabledBackgroundColor: kTertiary,
           disabledForegroundColor: kBackground,
-          visualDensity: isDense
-              ? VisualDensity.compact
-              : VisualDensity.standard,
+          padding: padding,
+          visualDensity:
+              isDense ? VisualDensity.compact : VisualDensity.standard,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(kRRectArc))),

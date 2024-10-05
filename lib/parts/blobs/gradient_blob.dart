@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class GradientTextBlob extends StatelessWidget {
-  const GradientTextBlob(
-    this.text, {
-    this.blendMode = BlendMode.srcIn,
-    super.key,
-    required this.gradient,
-    this.style,
-  });
+  const GradientTextBlob(this.text,
+      {this.blendMode = BlendMode.srcIn,
+      super.key,
+      required this.gradient,
+      this.style,
+      this.textAlign});
 
   final String text;
+  final TextAlign? textAlign;
   final BlendMode blendMode;
   final TextStyle? style;
   final Gradient gradient;
@@ -21,7 +21,11 @@ class GradientTextBlob extends StatelessWidget {
       shaderCallback: (Rect bounds) => gradient.createShader(
         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
       ),
-      child: Text(text, style: style),
+      child: Text(
+        text,
+        style: style,
+        textAlign: textAlign,
+      ),
     );
   }
 }

@@ -13,6 +13,15 @@ class MortalityAppView extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Mortality',
           theme: ThemeData(
+              expansionTileTheme: ExpansionTileThemeData(
+                  iconColor: kForeground,
+                  collapsedIconColor: kPoprockPrimary_1,
+                  collapsedShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(kRRectArc)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(kRRectArc))),
+              iconTheme: const IconThemeData(color: kForeground),
+              scaffoldBackgroundColor: kBackground,
               textSelectionTheme: TextSelectionThemeData(
                   selectionHandleColor: kForeground,
                   selectionColor: kForeground.withOpacity(0.5),
