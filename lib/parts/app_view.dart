@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mortality_app/parts/home_view.dart';
 import 'package:mortality_app/parts/new_user_form.dart';
 import 'package:mortality_app/shared.dart';
 import 'package:oktoast/oktoast.dart';
 
 class MortalityAppView extends StatelessWidget {
-  const MortalityAppView({super.key});
+  final bool isNewUser;
+
+  const MortalityAppView({super.key, required this.isNewUser});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,9 @@ class MortalityAppView extends StatelessWidget {
               brightness: Brightness.dark,
               primaryColor: kForeground),
           themeMode: ThemeMode.dark,
-          home: const NewUserFormPart()),
+          home: isNewUser
+              ? const NewUserFormPart(child: HomeView())
+              : const HomeView()),
     );
   }
 }

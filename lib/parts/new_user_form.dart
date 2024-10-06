@@ -12,17 +12,23 @@ import "package:oktoast/oktoast.dart";
 import "package:segmented_button_slide/segmented_button_slide.dart";
 
 class NewUserFormPart extends StatelessWidget {
-  const NewUserFormPart({super.key});
+  final Widget child;
+
+  const NewUserFormPart({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        backgroundColor: kBackground, body: ScrollingUserGuide());
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: kBackground, body: ScrollingUserGuide(child: child)),
+    );
   }
 }
 
 class ScrollingUserGuide extends StatefulWidget {
-  const ScrollingUserGuide({super.key});
+  final Widget child;
+
+  const ScrollingUserGuide({super.key, required this.child});
 
   @override
   State<ScrollingUserGuide> createState() => _ScrollingUserGuideState();
@@ -354,6 +360,14 @@ class AppDisclaimerPage extends StatelessWidget {
                         icon: Icons.note_alt_rounded,
                         description:
                             "Document your daily activities and emotions, and visualize your experiences over time to gain insight into your journey."),
+                    const SizedBox(height: 16),
+                    const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.swipe_down_rounded),
+                          SizedBox(width: 8),
+                          Text("Swipe down to continue")
+                        ]),
                     const SizedBox(height: 22),
                     const Divider(),
                     const SizedBox(height: 22),
@@ -534,8 +548,19 @@ class AppDisclaimerPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 10),
                         style: const TextStyle(
-                            fontWeight: FontWeight.w900, fontSize: 22),
-                        onPressed: () /* TODO */ {}),
+                            fontWeight: FontWeight.w900,
+                            fontSize: 22), onPressed: () {
+                      Debug().info(
+                          "NewUserForm DONE, switching back to [HomeView]");
+                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute<Widget>(
+                              builder: (BuildContext context2) => context
+                                  .findAncestorWidgetOfExactType<
+                                      NewUserFormPart>()!
+                                  .child));
+                    }),
                     const Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 38, vertical: 10),

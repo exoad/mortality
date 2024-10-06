@@ -7,3 +7,7 @@ final class BlobsHelper {
   static Alignment get randomAlignment =>
       Alignment(sRNG.nextDouble() * 2 - 1, sRNG.nextDouble() * 2 - 1);
 }
+
+class NLSpan extends TextSpan {
+  const NLSpan() : super(text: "\n");
+}

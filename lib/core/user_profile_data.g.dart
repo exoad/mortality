@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: always_specify_types
-
 part of 'user_profile_data.dart';
 
 // **************************************************************************
@@ -15,14 +13,14 @@ UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
       'name',
       'sex',
       'birthDate',
-      'defaultUseGenderBasedCalculations'
+      'defaultUseSexBasedCalculations'
     ],
   );
   return UserProfile(
     name: json['name'] as String? ?? 'Jane Wang',
     sex: $enumDecodeNullable(_$SexEnumMap, json['sex']) ?? Sex.female,
-    defaultUseGenderBasedCalculations:
-        json['defaultUseGenderBasedCalculations'] as bool? ?? true,
+    defaultUseSexBasedCalculations:
+        json['defaultUseSexBasedCalculations'] as bool? ?? true,
     birthDate: DateTime.parse(json['birthDate'] as String),
   );
 }
@@ -32,8 +30,7 @@ Map<String, dynamic> _$UserProfileToJson(UserProfile instance) =>
       'name': instance.name,
       'sex': _$SexEnumMap[instance.sex]!,
       'birthDate': instance.birthDate.toIso8601String(),
-      'defaultUseGenderBasedCalculations':
-          instance.defaultUseGenderBasedCalculations,
+      'defaultUseSexBasedCalculations': instance.defaultUseSexBasedCalculations,
     };
 
 const _$SexEnumMap = {
