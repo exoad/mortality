@@ -11,24 +11,21 @@ final class UserProfileDefaults {
   static const String defaultName = "Jane Wang";
   static const Sex defaultSex = Sex.female;
   static const bool defaultUseSexBasedCalculations = true;
-  static const String boxName =
-      "$kCanonicalAppIdentifier:user_profile";
+  static final DateTime defaultBirthDate = DateTime(2006, 07, 14);
+  static const String boxName = "$kCanonicalAppIdentifier:user_profile";
 }
 
 @JsonSerializable()
 final class UserProfile implements Versioned {
-  @JsonKey(
-      required: true, defaultValue: UserProfileDefaults.defaultName)
+  @JsonKey(required: true, defaultValue: UserProfileDefaults.defaultName)
   final String name;
-  @JsonKey(
-      required: true, defaultValue: UserProfileDefaults.defaultSex)
+  @JsonKey(required: true, defaultValue: UserProfileDefaults.defaultSex)
   final Sex sex;
   @JsonKey(required: true)
   final DateTime birthDate;
   @JsonKey(
       required: true,
-      defaultValue:
-      UserProfileDefaults.defaultUseSexBasedCalculations)
+      defaultValue: UserProfileDefaults.defaultUseSexBasedCalculations)
   final bool defaultUseSexBasedCalculations;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
@@ -36,38 +33,34 @@ final class UserProfile implements Versioned {
 
   Map<String, dynamic> toJson() => _$UserProfileToJson(this);
 
-  UserProfile({required this.name,
-    required this.sex,
-    required this.defaultUseSexBasedCalculations,
-    required this.birthDate}) {
+  UserProfile(
+      {required this.name,
+      required this.sex,
+      required this.defaultUseSexBasedCalculations,
+      required this.birthDate}) {
     assert(name.isNotEmpty, "[FATAL] Name field supplied as empty");
     assert(birthDate.isBefore(DateTime.now()),
-    "[FATAL] Birth date is in the future");
+        "[FATAL] Birth date is in the future");
   }
 
-  UserProfile.fromAge({required this.name,
-    required this.sex,
-    required this.defaultUseSexBasedCalculations,
-    required int age})
-      : birthDate =
-  DateTime.now().subtract(Duration(days: age * 365)) {
+  UserProfile.fromAge(
+      {required this.name,
+      required this.sex,
+      required this.defaultUseSexBasedCalculations,
+      required int age})
+      : birthDate = DateTime.now().subtract(Duration(days: age * 365)) {
     assert(name.isNotEmpty, "[FATAL] Name field supplied as empty");
     assert(age >= 0, "[FATAL] Age field supplied as negative");
   }
 
-  int get age =>
-      DateTime
-          .now()
-          .difference(birthDate)
-          .inDays ~/ 365;
+  int get age => DateTime.now().difference(birthDate).inDays ~/ 365;
 
   @override
   int get version => 1;
 
-  AgeClassification get ageClassification =>
-      age < 18
-          ? AgeClassification.child
-          : age < 65
+  AgeClassification get ageClassification => age < 18
+      ? AgeClassification.child
+      : age < 65
           ? AgeClassification.adult
           : AgeClassification.senior;
 

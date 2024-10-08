@@ -28,6 +28,7 @@ dependencies:
   scroll_wheel_date_picker: ^0.0.2+1
   segmented_button_slide: ^2.0.0
   visibility_detector: ^0.4.0+2
+  zoom_widget: ^2.0.1
 
 dev_dependencies:
   flutter_test:
