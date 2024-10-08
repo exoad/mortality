@@ -8,6 +8,7 @@ import 'package:hive/hive.dart';
 import 'package:mortality_app/core/data_manager.dart';
 import 'package:mortality_app/debug.dart';
 import 'package:mortality_app/parts/app_view.dart';
+import 'package:mortality_app/test_views/test_views.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() async {
@@ -33,6 +34,10 @@ void main() async {
   DataBoxManager().load().then((bool isNewUser) {
     Debug().info("IsNewUser=$isNewUser");
     runApp(MortalityAppView(isNewUser: false));
+    if (testView != null) {
+      Debug().warn(
+          "Running test view: ${testView!.testViewName} instead of proper AppView!");
+    }
   });
   Debug().info(
       "Startup took ${DateTime.now().difference(start).inMilliseconds}ms");

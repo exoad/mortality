@@ -17,16 +17,29 @@ final class UserProfileDefaults {
 
 @JsonSerializable()
 final class UserProfile implements Versioned {
-  @JsonKey(required: true, defaultValue: UserProfileDefaults.defaultName)
-  final String name;
-  @JsonKey(required: true, defaultValue: UserProfileDefaults.defaultSex)
-  final Sex sex;
-  @JsonKey(required: true)
-  final DateTime birthDate;
   @JsonKey(
+      name: "name",
+      required: true,
+      defaultValue: UserProfileDefaults.defaultName)
+  String _name;
+  @JsonKey(
+      name: "sex", required: true, defaultValue: UserProfileDefaults.defaultSex)
+  Sex _sex;
+  @JsonKey(name: "birthDate", required: true)
+  DateTime _birthDate;
+  @JsonKey(
+      name: "defaultUseSexBasedCalculations",
       required: true,
       defaultValue: UserProfileDefaults.defaultUseSexBasedCalculations)
-  final bool defaultUseSexBasedCalculations;
+  final bool _defaultUseSexBasedCalculations;
+
+  String get name => _name;
+
+  Sex get sex => _sex;
+
+  DateTime get birthDate => _birthDate;
+
+  bool get defaultUseSexBasedCalculations => _defaultUseSexBasedCalculations;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) =>
       _$UserProfileFromJson(json);
@@ -34,26 +47,33 @@ final class UserProfile implements Versioned {
   Map<String, dynamic> toJson() => _$UserProfileToJson(this);
 
   UserProfile(
-      {required this.name,
-      required this.sex,
-      required this.defaultUseSexBasedCalculations,
-      required this.birthDate}) {
+      {required String name,
+      required Sex sex,
+      required bool defaultUseSexBasedCalculations,
+      required DateTime birthDate})
+      : _name = name,
+        _sex = sex,
+        _birthDate = birthDate,
+        _defaultUseSexBasedCalculations = defaultUseSexBasedCalculations {
     assert(name.isNotEmpty, "[FATAL] Name field supplied as empty");
     assert(birthDate.isBefore(DateTime.now()),
         "[FATAL] Birth date is in the future");
   }
 
   UserProfile.fromAge(
-      {required this.name,
-      required this.sex,
-      required this.defaultUseSexBasedCalculations,
+      {required String name,
+      required Sex sex,
+      required bool defaultUseSexBasedCalculations,
       required int age})
-      : birthDate = DateTime.now().subtract(Duration(days: age * 365)) {
+      : _name = name,
+        _sex = sex,
+        _defaultUseSexBasedCalculations = defaultUseSexBasedCalculations,
+        _birthDate = DateTime.now().subtract(Duration(days: age * 365)) {
     assert(name.isNotEmpty, "[FATAL] Name field supplied as empty");
     assert(age >= 0, "[FATAL] Age field supplied as negative");
   }
 
-  int get age => DateTime.now().difference(birthDate).inDays ~/ 365;
+  int get age => DateTime.now().difference(_birthDate).inDays ~/ 365;
 
   @override
   int get version => 1;
@@ -66,5 +86,18 @@ final class UserProfile implements Versioned {
 
   int get ageGroup => age ~/ 10;
 
-  Duration get livedFor => DateTime.now().difference(birthDate);
+  Duration get livedFor => DateTime.now().difference(_birthDate);
+
+  @override
+  int get hashCode => _name.hashCode ^ 31;
+
+  @override
+  bool operator ==(Object other) {
+    if (other is UserProfile) {
+      return other.name == name &&
+          other.sex == sex &&
+          other.birthDate == birthDate;
+    }
+    return false;
+  }
 }

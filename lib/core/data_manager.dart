@@ -53,7 +53,9 @@ class DataBoxManager extends ChangeNotifier {
   }
 
   Future<void> save() async {
+    Debug().warn("DataBoxManager: Saving keys: ${_box.toMap()}");
     await _box.put(UserProfileDefaults.boxName, jsonEncode(_userProfile));
+    Debug().info("DataBoxManager: Saved keys: ${_box.toMap()} !!");
   }
 
   bool get isEmpty => _box.keys.isEmpty;
