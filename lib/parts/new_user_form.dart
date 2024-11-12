@@ -438,7 +438,7 @@ class AppDisclaimerPage extends StatelessWidget {
                                   ),
                                   TextSpan(
                                     text:
-                                        "By using this app, you acknowledge and agree that all decisions and actions based on the app’s content are made at your own discretion and risk. ",
+                                        "By using this app, you acknowledge and agree that all decisions and actions based on the app’s content are made at your discretion and risk. ",
                                   ),
                                   TextSpan(
                                     text:
@@ -456,11 +456,11 @@ class AppDisclaimerPage extends StatelessWidget {
                                   ),
                                   TextSpan(
                                     text:
-                                        "This app does not collect, store, or share any personal health or medical data. ",
+                                        "This app does not collect or share personal health or medical data with third-parties without permission. ",
                                   ),
                                   TextSpan(
                                     text:
-                                        "Any information you provide is used solely for the app’s intended functionality and remains anonymous. ",
+                                        "Any information you provide is anonymous and used solely for the app’s intended functionality. ",
                                   ),
                                   TextSpan(
                                     text:
